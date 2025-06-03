@@ -12,8 +12,6 @@ const routes = [
             {
                 path: "/",
                 element: <Home/>
-                // signup
-                // login
                 // user homepage/dashboard
                 // spirits page
             },
