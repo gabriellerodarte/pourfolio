@@ -33,6 +33,18 @@ class Signup(Resource):
             db.session.rollback()
             return {'error': str(e)}, 500
 
+class Login(Resource):
+
+    def post(self):
+        json = request.get_json()
+        username = json.get('username')
+        user = User.query.filter_by(username=username).first()
+        if user and user.authenticate(json.get('password')):
+            session['user_id'] = user.id
+            return user.to_dict(), 200
+        
+        return {'error': 'incorrect username or password'}, 401
+
 class CheckSession(Resource):
 
     def get(self):
