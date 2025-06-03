@@ -6,7 +6,7 @@ function UserProvider({ children }) {
     const [user, setUser] = useState(null)
 
     useEffect(() => {
-        fetch(`/checksession`)
+        fetch(`/check_session`)
         .then(r => {
             if (r.ok) return r.json()
             throw new Error('Failed to fetch session')

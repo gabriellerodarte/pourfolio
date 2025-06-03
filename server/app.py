@@ -48,10 +48,11 @@ class Login(Resource):
 class CheckSession(Resource):
 
     def get(self):
-        user_id = session['user_id']
+        user_id = session.get('user_id')
         if user_id:
             user_dict = User.query.filter_by(id=user_id).first().to_dict()
             return user_dict, 200
+        return {}, 204
 
 class Logout(Resource):
 
@@ -64,7 +65,7 @@ def index():
     return '<h1>Project Server</h1>'
 
 api.add_resource(Signup, '/signup', endpoint='signup')
-api.add_resource(CheckSession, '/checksession', endpoint='checksession')
+api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Logout, '/logout', endpoint='logout')
 

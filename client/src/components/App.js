@@ -1,5 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { UserProvider } from "../context/UserContext";
 
 function App() {
   return (
@@ -8,7 +9,9 @@ function App() {
         {/* NavBar element if*** user */}
       </header>
       <main>
-        <Outlet/>
+        <UserProvider>
+          <Outlet/>
+        </UserProvider>
       </main>
     </div>
   )
