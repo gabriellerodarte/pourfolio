@@ -7,7 +7,10 @@ const routes = [
         element: <App/>,
         children: [
             {
-
+                // signup
+                // login
+                // user homepage/dashboard
+                // spirits page
             }
         ]
     }
