@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 
 function Home() {
-    const user = true
+    const user = false
 
     return (
         <div>
