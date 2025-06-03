@@ -33,11 +33,20 @@ class Signup(Resource):
             db.session.rollback()
             return {'error': str(e)}, 500
 
+class CheckSession(Resource):
+
+    def get(self):
+        user_id = session['user_id']
+        if user_id:
+            user_dict = User.query.filter_by(id=user_id).first().to_dict()
+            return user_dict, 200
+
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
 
 api.add_resource(Signup, '/signup', endpoint='signup')
+api.add_resource(CheckSession, 'checksession', endpoint='checksession')
 
 
 if __name__ == '__main__':
