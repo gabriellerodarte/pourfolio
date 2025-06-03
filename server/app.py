@@ -53,6 +53,12 @@ class CheckSession(Resource):
             user_dict = User.query.filter_by(id=user_id).first().to_dict()
             return user_dict, 200
 
+class Logout(Resource):
+
+    def delete(self):
+        session['user_id'] = None
+        return {}, 204
+
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
