@@ -22,9 +22,22 @@ function Signup() {
         <Formik
             initialValues={initialValues}
             validationSchema={SignupSchema}
-            onSubmit={values => {
-                console.log(values)
-                //fetch logic
+            onSubmit={(values, {resetForm}) => {
+                fetch(`/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(values)
+                })
+                .then(r => {
+                    if (!r.ok) throw new Error('Failed to create user')
+                    return r.json()
+                })
+                .then(newUserData => {
+                    // CHECK SESSION DATA
+                    // set User
+                })
             }}
         >
             <Form>
