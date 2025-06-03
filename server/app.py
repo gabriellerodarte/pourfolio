@@ -17,21 +17,18 @@ class Signup(Resource):
     def post(self):
         json = request.get_json()
 
-        if 'username' not in json or 'password' not in json:
+        if 'username' not in json or 'password_hash' not in json:
             return {'error':'Username and password are requried.'}, 400
 
         try:
             user = User(
                 username=json['username']
             )
-            user.password_hash = json['password']
+            user.password_hash = json['password_hash']
             db.session.add(user)
             db.session.commit()
             session['user_id'] = user.id
             return user.to_dict(exclude=['_password_hash']), 201
-        except IntegrityError:
-            db.session.rollback()
-            return {'error': 'Username already exists.'}, 409
         except Exception as e:
             db.session.rollback()
             return {'error': str(e)}, 500
