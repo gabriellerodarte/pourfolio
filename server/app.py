@@ -69,6 +69,18 @@ class SpiritResource(Resource):
         spirit_dicts = [spirit.to_dict() for spirit in Spirit.query.all()]
         return spirit_dicts, 200
 
+    def post(self):
+        try:
+            json = request.get_json()
+            new_spirit = Spirit(name=json['name'])
+            db.session.add(new_spirit)
+            db.session.commit()
+
+            return new_spirit.to_dict(), 201
+        except Exception as e:
+            return {'errors': ['validation errors', str(e)]}, 400
+
+
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'

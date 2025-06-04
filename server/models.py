@@ -37,4 +37,4 @@ class Spirit(db.Model, SerializerMixin):
     def validate_name(self, key, name):
         if not name:
             raise ValueError("Spirit name must be provided")
-        return name.strip()
+        return name.lower().strip()
