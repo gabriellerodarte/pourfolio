@@ -15,7 +15,7 @@ function Spirits() {
             {showSpiritForm ? (
                 <NewSpiritForm setShowSpiritForm={setShowSpiritForm}/>
             ) : (
-                <button onClick={setShowSpiritForm(true)}>+ Add Spirit</button>
+                <button onClick={() => setShowSpiritForm(true)}>+ Add Spirit</button>
             )}
         </div>
     )

@@ -36,6 +36,7 @@ function NewSpiritForm({ setShowSpiritForm }) {
                     .then(newSpirit => {
                         setSpirits(prev => [...prev, newSpirit])
                         resetForm()
+                        setShowSpiritForm(false)
                     })
                 }}
             >
@@ -47,7 +48,7 @@ function NewSpiritForm({ setShowSpiritForm }) {
                     <button type="submit">Add Spirit</button>
                 </Form>
             </Formik>
-            <button onClick={setShowSpiritForm(false)}>Cancel</button>
+            <button onClick={() => setShowSpiritForm(false)}>Cancel</button>
         </div>
     )
 }
