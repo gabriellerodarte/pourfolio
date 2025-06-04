@@ -13,8 +13,6 @@ const routes = [
             {
                 path: "/",
                 element: <Home/>
-                // user homepage/dashboard
-                // spirits page
             },
             {
                 path: "/login",
@@ -26,7 +24,7 @@ const routes = [
             },
             {
                 path: "/spirits",
-                element: <Spirits/>
+                element: <Spirits/>,
             }
         ]
     }
