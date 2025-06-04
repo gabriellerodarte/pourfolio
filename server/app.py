@@ -9,7 +9,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import User, Spirit
+from models import User, Spirit, Cocktail
 
 # Views go here!
 class Signup(Resource):

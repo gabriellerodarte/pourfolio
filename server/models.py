@@ -13,7 +13,11 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String, unique=True)
     _password_hash = db.Column(db.String, nullable=False)
 
+    cocktails = db.relationship('Cocktail', back_populates='user', cascade='all, delete-orphan')
+    spirits = association_proxy('cocktails', 'spirit')
+
     serialize_rules = ('-_password_hash',)
+
     @hybrid_property
     def password_hash(self):
         raise Exception('Password hashes may not be viewed.')
@@ -26,12 +30,29 @@ class User(db.Model, SerializerMixin):
     def authenticate(self, password):
         return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
 
+class Cocktail(db.Model, SerializerMixin):
+    __tablename__ = 'cocktails'
+
+    id = db.Column(db.Integer, primary_key=True)
+    ingredients = db.Column(db.String, nullable=False)
+    instructions = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    spirit_id = db.Column(db.Integer, db.ForeignKey('spirits.id'), nullable=False)
+
+    user = db.relationship('User', back_populates='cocktails')
+    spirit = db.relationship('Spirit', back_populates='cocktails')
+
+    serialize_rules = ('-user.id', '-user', '-spirit.id', '-spirit')
+
 
 class Spirit(db.Model, SerializerMixin):
     __tablename__ = 'spirits'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
+
+    cocktails = db.relationship('Cocktail', back_populates='spirit', cascade='all, delete-orphan')
+    users = association_proxy('cocktails', 'user')
 
     @validates('name')
     def validate_name(self, key, name):
