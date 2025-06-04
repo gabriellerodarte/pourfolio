@@ -5,6 +5,7 @@ import { UserContext } from "../context/UserContext"
 
 function NavBar() {
     const { setUser } = useContext(UserContext)
+    const navigate = useNavigate()
 
     const handleLogout = () => {
         fetch(`/logout`, {
@@ -13,6 +14,7 @@ function NavBar() {
         .then(r => {
             if (r.ok) {
                 setUser(null)
+                navigate("/")
             } else {
                 throw new Error("Failed to logout")
             }
