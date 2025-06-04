@@ -63,7 +63,11 @@ class Logout(Resource):
         except Exception as e:
             return {'error': e}, 401
 
+class SpiritResource(Resource):
 
+    def get(self):
+        spirit_dicts = [spirit.to_dict() for spirit in Spirit.query.all()]
+        return spirit_dicts, 200
 
 @app.route('/')
 def index():
@@ -73,6 +77,7 @@ api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Logout, '/logout', endpoint='logout')
+api.add_resource(SpiritResource, '/spirits', endpoint='spirits')
 
 
 if __name__ == '__main__':
