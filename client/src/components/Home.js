@@ -8,14 +8,14 @@ function Home() {
 
     return (
         <div>
+            <h1>Pourfolio</h1>
             { user ? (
                 <div>
-                    <h1>Pourfolio Home</h1>
-                    <h2>Welcome {user.username}!</h2>
+                    <p>Your curated cocktail recipe vault.</p>
                 </div>
             ) : (
                 <div>
-                    <h1>Pourfolio</h1>
+                    <p>Browse spirits, view saved recipes, and mix up something new.</p>
                     <Link to="/login">Login</Link>
                     <Link to="/signup">Sign Up</Link>
                 </div>

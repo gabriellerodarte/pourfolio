@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext"
 
 
 function NavBar() {
-    const { setUser } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext)
     const navigate = useNavigate()
 
     const handleLogout = () => {
@@ -24,10 +24,11 @@ function NavBar() {
     return (
         <nav>
             <div>
-                <div>*pour*folio</div>
+                <div>*POUR*folio</div>
                 <div>
                     <NavLink to="/">Home</NavLink>
-                    <NavLink to="/spirits">Spirits</NavLink>
+                    <NavLink to="my-spirits">View My Spirits</NavLink>
+                    <NavLink to="/spirits">Browse All Spirits</NavLink>
                 </div>
             </div>
             <div>
