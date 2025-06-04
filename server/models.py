@@ -46,13 +46,13 @@ class Cocktail(db.Model, SerializerMixin):
 
     @validates('user_id')
     def validate_user(self, key, user_id):
-        if user_id and not db.session.get(User, user_id):
+        if not db.session.get(User, user_id):
             raise ValueError("User not found.")
         return user_id
 
     @validates('spirit_id')
     def validate_spirit(self, key, spirit_id):
-        if spirit_id and not db.session.get(Spirit, spirit_id):
+        if not db.session.get(Spirit, spirit_id):
             raise ValueError("Spirit not found.")
         return spirit_id
 
