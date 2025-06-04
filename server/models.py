@@ -25,3 +25,15 @@ class User(db.Model, SerializerMixin):
     def authenticate(self, password):
         return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
 
+
+class Spirit(db.Model, SerializerMixin):
+    __tablename__ = 'spirits'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, unique=True)
+
+    @validates('name')
+    def validate_name(self, key, name):
+        if not name:
+            raise ValueError("Spirit name must be provided")
+        return name.strip()
