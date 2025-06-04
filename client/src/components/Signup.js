@@ -1,8 +1,11 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useContext } from 'react';
 import * as Yup from 'yup';
+import { UserContext } from '../context/UserContext';
 
 
 function Signup() {
+    const { setUser } = useContext(UserContext)
 
     const SignupSchema = Yup.object().shape({
         username: Yup.string().required('Username required'),
@@ -35,8 +38,8 @@ function Signup() {
                     return r.json()
                 })
                 .then(newUserData => {
-                    // CHECK SESSION DATA
-                    // set User
+                    setUser(newUserData)
+                    resetForm()
                 })
             }}
         >
@@ -54,7 +57,7 @@ function Signup() {
                 <Field name="confirmPassword" type="password"/>
                 <ErrorMessage name="confirmPassword"/>
 
-                <button type="submit">Submit</button>
+                <button type="submit">Sign Up</button>
             </Form>
         </Formik>
     )

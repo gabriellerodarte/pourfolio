@@ -1,15 +1,17 @@
+import { useContext } from "react"
 import { Link } from "react-router-dom"
+import { UserContext } from "../context/UserContext"
 
 
 function Home() {
-    const user = false
+    const { user } = useContext(UserContext)
 
     return (
         <div>
             { user ? (
                 <div>
                     <h1>Pourfolio Home</h1>
-                    <h2>Welcome {user}!</h2>
+                    <h2>Welcome {user.username}!</h2>
                 </div>
             ) : (
                 <div>
