@@ -9,7 +9,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import User
+from models import User, Spirit
 
 # Views go here!
 class Signup(Resource):
@@ -62,6 +62,8 @@ class Logout(Resource):
             return {}, 204
         except Exception as e:
             return {'error': e}, 401
+
+
 
 @app.route('/')
 def index():
