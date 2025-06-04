@@ -2,6 +2,7 @@ import App from "./components/App";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/Signup";
+import Spirits from "./components/Spirits";
 
 
 const routes = [
@@ -22,6 +23,10 @@ const routes = [
             {
                 path: "/signup",
                 element: <SignUp/>
+            },
+            {
+                path: "/spirits",
+                element: <Spirits/>
             }
         ]
     }
