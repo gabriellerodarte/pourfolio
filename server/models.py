@@ -44,6 +44,18 @@ class Cocktail(db.Model, SerializerMixin):
 
     serialize_rules = ('-user.id', '-user', '-spirit.id', '-spirit')
 
+    @validates('ingredients')
+    def validate_customer(self, key, ingredients):
+        if not ingredients:
+            raise ValueError("Ingredients must be provided.")
+        return ingredients
+
+    @validates('instructions')
+    def validate_customer(self, key, instructions):
+        if not instructions:
+            raise ValueError("Instructions must be provided.")
+        return instructions
+
     @validates('user_id')
     def validate_user(self, key, user_id):
         if not db.session.get(User, user_id):
