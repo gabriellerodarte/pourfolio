@@ -2,9 +2,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup"
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const { setUser } = useContext(UserContext)
+    const navigate = useNavigate()
 
     const LoginSchema = Yup.object().shape({
         username: Yup.string().required("Username required"),
@@ -31,10 +33,12 @@ function Login() {
                     })
                     .then(r => {
                         if (!r.ok) throw new Error('Invalid username or password')
+                            // don't want to error out on invalid username/password - add proper error messaging
                         return r.json()
                     })
                     .then(userData => {
                         setUser(userData)
+                        navigate("/")
                         resetForm()
                     })
                 }}

@@ -57,8 +57,11 @@ class CheckSession(Resource):
 class Logout(Resource):
 
     def delete(self):
-        session['user_id'] = None
-        return {}, 204
+        try:
+            session['user_id'] = None
+            return {}, 204
+        except Exception as e:
+            return {'error': e}, 401
 
 @app.route('/')
 def index():

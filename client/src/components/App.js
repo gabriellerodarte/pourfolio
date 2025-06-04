@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
-import { UserProvider } from "../context/UserContext";
+import { UserContext } from "../context/UserContext";
+import NavBar from "./NavBar";
 
 function App() {
+  const { user } = useContext(UserContext)
+
   return (
     <div>
       <header>
-        {/* NavBar element if*** user */}
+        {user && (
+          <NavBar/>
+        )}
       </header>
       <main>
-        <UserProvider>
           <Outlet/>
-        </UserProvider>
       </main>
     </div>
   )
