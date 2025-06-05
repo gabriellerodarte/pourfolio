@@ -108,6 +108,7 @@ api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Logout, '/logout', endpoint='logout')
 api.add_resource(SpiritResource, '/spirits', endpoint='spirits')
+api.add_resource(CocktailResource, '/cocktails', endpoint='cocktails')
 
 
 if __name__ == '__main__':
