@@ -80,6 +80,23 @@ class SpiritResource(Resource):
         except Exception as e:
             return {'errors': ['validation errors', str(e)]}, 400
 
+class CocktailResource(Resource):
+
+    def post(self):
+        try:
+            json = request.get_json()
+            new_cocktail = Cocktail(
+                ingedients=json['ingredients'],
+                instructions=json['instructions'],
+                user_id=json['user_id'],
+                spirit_id=json['spirit_id']
+            )
+            db.session.add(new_cocktail)
+            db.session.commit()
+            return new_cocktail.to_dict(), 201
+        except Exception as e:
+            return {'errors':['validation errors', str(e)]}, 400
+
 
 @app.route('/')
 def index():
