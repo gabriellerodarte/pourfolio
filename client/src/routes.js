@@ -1,4 +1,5 @@
 import App from "./components/App";
+import Cocktails from "./components/Cocktails";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import MySpirits from "./components/MySpirits";
@@ -30,6 +31,10 @@ const routes = [
             {
                 path: "/my-spirits",
                 element: <MySpirits/>
+            },
+            {
+                path: "/my-spirits/:id/cocktails",
+                element: <Cocktails/>
             }
         ]
     }
