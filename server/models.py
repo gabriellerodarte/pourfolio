@@ -34,6 +34,7 @@ class Cocktail(db.Model, SerializerMixin):
     __tablename__ = 'cocktails'
 
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
     ingredients = db.Column(db.String, nullable=False)
     instructions = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
@@ -43,6 +44,12 @@ class Cocktail(db.Model, SerializerMixin):
     spirit = db.relationship('Spirit', back_populates='cocktails')
 
     serialize_rules = ('-user.id', '-user', '-spirit.id', '-spirit')
+
+    @validates('name')
+    def validate_customer(self, key, name):
+        if not name:
+            raise ValueError("Cocktail name must be provided.")
+        return name
 
     @validates('ingredients')
     def validate_customer(self, key, ingredients):

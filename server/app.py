@@ -86,7 +86,8 @@ class CocktailResource(Resource):
         try:
             json = request.get_json()
             new_cocktail = Cocktail(
-                ingedients=json['ingredients'],
+                name=json['name'],
+                ingredients=json['ingredients'],
                 instructions=json['instructions'],
                 user_id=json['user_id'],
                 spirit_id=json['spirit_id']
