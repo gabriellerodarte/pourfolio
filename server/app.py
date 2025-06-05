@@ -49,10 +49,35 @@ class CheckSession(Resource):
 
     def get(self):
         user_id = session.get('user_id')
-        if user_id:
-            user_dict = User.query.filter_by(id=user_id).first().to_dict()
-            return user_dict, 200
-        return {}, 204
+        if not user_id:
+            return {'error': 'Not logged in'}, 401
+        
+        user = User.query.filter_by(id=user_id).first()
+        if not user:
+            return {'error': 'User not found'}, 404
+        
+        user_dict = {
+            'id': user.id,
+            'username': user.username,
+            'spirits': [
+                {
+                    'id': spirit.id,
+                    'name': spirit.name,
+                    'cocktails': [
+                        {
+                            'id': cocktail.id,
+                            'name': cocktail.name,
+                            'ingredients': cocktail.ingredients,
+                            'instructions': cocktail.instructions
+                        }
+                        for cocktail in spirit.cocktails if cocktail.user_id == user.id
+                    ]
+                }
+                for spirit in user.spirits
+            ]
+        }
+
+        return user_dict, 200
 
 class Logout(Resource):
 
@@ -66,7 +91,7 @@ class Logout(Resource):
 class SpiritResource(Resource):
 
     def get(self):
-        spirit_dicts = [spirit.to_dict() for spirit in Spirit.query.all()]
+        spirit_dicts = [{'id': spirit.id, 'name': spirit.name} for spirit in Spirit.query.all()]
         return spirit_dicts, 200
 
     def post(self):

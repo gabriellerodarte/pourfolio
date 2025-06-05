@@ -16,7 +16,7 @@ class User(db.Model, SerializerMixin):
     cocktails = db.relationship('Cocktail', back_populates='user', cascade='all, delete-orphan')
     spirits = association_proxy('cocktails', 'spirit')
 
-    serialize_rules = ('-_password_hash', '-cocktails', 'spirits')
+    serialize_rules = ('-_password_hash', '-cocktails')
 
     @hybrid_property
     def password_hash(self):
@@ -43,7 +43,7 @@ class Cocktail(db.Model, SerializerMixin):
     user = db.relationship('User', back_populates='cocktails')
     spirit = db.relationship('Spirit', back_populates='cocktails')
 
-    serialize_rules = ('-user.id', '-user', '-spirit.id', '-spirit')
+    serialize_rules = ('-user.id', '-spirit.id', '-spirit')
 
     @validates('name')
     def validate_customer(self, key, name):
@@ -85,7 +85,7 @@ class Spirit(db.Model, SerializerMixin):
     cocktails = db.relationship('Cocktail', back_populates='spirit', cascade='all, delete-orphan')
     users = association_proxy('cocktails', 'user')
 
-    serialize_rules = ('-users', '-cocktails')
+    serialize_rules = ('-cocktails.spirit',)
 
     @validates('name')
     def validate_name(self, key, name):
