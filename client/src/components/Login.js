@@ -5,7 +5,7 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-    const { setUser, setLoggedIn } = useContext(UserContext)
+    const { setUser, setUserSpirits, setLoggedIn } = useContext(UserContext)
     const navigate = useNavigate()
 
     const LoginSchema = Yup.object().shape({
@@ -37,7 +37,12 @@ function Login() {
                         return r.json()
                     })
                     .then(userData => {
-                        setUser(userData)
+                        setUser({
+                            id: userData.id,
+                            username: userData.username
+                        })
+                        console.log(userData.spirits)
+                        setUserSpirits(userData.spirits)
                         setLoggedIn(true)
                         navigate("/")
                         resetForm()

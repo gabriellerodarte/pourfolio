@@ -9,8 +9,8 @@ function MySpirits() {
 
     console.log(userSpirits)
 
-    if (!user) {
-        return <div>Loading...</div>
+    if (!userSpirits) {
+        return <div>Add cocktail recipes to see spirits here!</div>
     }
 
     return (

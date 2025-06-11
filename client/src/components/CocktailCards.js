@@ -4,12 +4,10 @@ import { UserContext } from "../context/UserContext"
 
 
 function CocktailCards() {
-    const { user, userSpirits } = useContext(UserContext)
+    const { userSpirits } = useContext(UserContext)
     const { id } = useParams()
 
     const spirit = userSpirits.find(spirit => spirit.id.toString() === id)
-
-    console.log(spirit?.cocktails)
 
     return (
         <div>

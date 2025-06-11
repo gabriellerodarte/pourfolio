@@ -76,52 +76,64 @@ class CheckSession(Resource):
                 for spirit in user.spirits
             ]
         }
-
         return user_dict, 200
 
 class Logout(Resource):
 
     def delete(self):
-        try:
-            session['user_id'] = None
-            return {}, 204
-        except Exception as e:
-            return {'error': e}, 401
+        if session.get('user_id'):
+            try:
+                session['user_id'] = None
+                return {}, 204
+            except Exception as e:
+                return {'error': e}, 401
+        else:
+            return {'error': 'No user is  currently logged in'}, 400
 
 class SpiritResource(Resource):
 
     def get(self):
-        spirit_dicts = [{'id': spirit.id, 'name': spirit.name} for spirit in Spirit.query.all()]
-        return spirit_dicts, 200
+        if session.get('user_id'):
+            try:
+                spirit_dicts = [{'id': spirit.id, 'name': spirit.name} for spirit in Spirit.query.all()]
+                return spirit_dicts, 200
+        else:
+            return {'error': 'Unauthorized to access this resource'}, 401
 
     def post(self):
-        try:
-            json = request.get_json()
-            new_spirit = Spirit(name=json['name'])
-            db.session.add(new_spirit)
-            db.session.commit()
+        if session.get('user_id'):
+            try:
+                json = request.get_json()
+                new_spirit = Spirit(name=json['name'])
+                db.session.add(new_spirit)
+                db.session.commit()
 
-            return new_spirit.to_dict(), 201
-        except Exception as e:
-            return {'errors': ['validation errors', str(e)]}, 400
+                return new_spirit.to_dict(), 201
+            except Exception as e:
+                return {'errors': ['validation errors', str(e)]}, 400
+        else:
+            return {'error': 'Unauthorized to access this resource'}, 401
 
 class CocktailResource(Resource):
 
     def post(self):
-        try:
-            json = request.get_json()
-            new_cocktail = Cocktail(
-                name=json['name'],
-                ingredients=json['ingredients'],
-                instructions=json['instructions'],
-                user_id=json['user_id'],
-                spirit_id=json['spirit_id']
-            )
-            db.session.add(new_cocktail)
-            db.session.commit()
-            return new_cocktail.to_dict(), 201
-        except Exception as e:
-            return {'errors':['validation errors', str(e)]}, 400
+        if session.get('user_id'):
+            try:
+                json = request.get_json()
+                new_cocktail = Cocktail(
+                    name=json['name'],
+                    ingredients=json['ingredients'],
+                    instructions=json['instructions'],
+                    user_id=json['user_id'],
+                    spirit_id=json['spirit_id']
+                )
+                db.session.add(new_cocktail)
+                db.session.commit()
+                return new_cocktail.to_dict(), 201
+            except Exception as e:
+                return {'errors':['validation errors', str(e)]}, 400
+        else:
+            return {'error': 'Unauthorized to access this resource'}, 401
 
 
 @app.route('/')

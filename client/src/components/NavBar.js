@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext"
 
 
 function NavBar() {
-    const { setUser, setLoggedIn } = useContext(UserContext)
+    const { setUser, setUserSpirits, setLoggedIn } = useContext(UserContext)
     const navigate = useNavigate()
 
     const handleLogout = () => {
@@ -14,6 +14,7 @@ function NavBar() {
         .then(r => {
             if (r.ok) {
                 setUser({})
+                setUserSpirits([])
                 setLoggedIn(false)
                 navigate("/")
             } else {
