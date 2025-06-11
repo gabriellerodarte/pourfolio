@@ -4,12 +4,12 @@ import { UserContext } from "../context/UserContext";
 import NavBar from "./NavBar";
 
 function App() {
-  const { user } = useContext(UserContext)
+  const { loggedIn } = useContext(UserContext)
 
   return (
     <div>
       <header>
-        {user && (
+        {loggedIn && (
           <NavBar/>
         )}
       </header>

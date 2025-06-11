@@ -4,12 +4,12 @@ import { UserContext } from "../context/UserContext"
 
 
 function Home() {
-    const { user } = useContext(UserContext)
+    const { loggedIn } = useContext(UserContext)
 
     return (
         <div>
             <h1>Pourfolio</h1>
-            { user ? (
+            { loggedIn ? (
                 <div>
                     <p>Your curated cocktail recipe vault.</p>
                 </div>

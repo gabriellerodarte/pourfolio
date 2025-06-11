@@ -3,17 +3,17 @@ import { useParams } from "react-router-dom"
 import { UserContext } from "../context/UserContext"
 
 
-function Cocktails() {
-    const { user } = useContext(UserContext)
+function CocktailCards() {
+    const { user, userSpirits } = useContext(UserContext)
     const { id } = useParams()
 
-    const spirit = user?.spirits?.find(spirit => spirit.id.toString() === id)
+    const spirit = userSpirits.find(spirit => spirit.id.toString() === id)
 
-    console.log(spirit.cocktails)
+    console.log(spirit?.cocktails)
 
     return (
         <div>
-            <p>My {spirit.name} Cocktails</p>
+            <p>My {spirit?.name} Cocktails</p>
             {spirit?.cocktails?.map(cocktail => (
                 <div>
                     <h4>{cocktail.name}</h4>
@@ -25,4 +25,4 @@ function Cocktails() {
     )
 }
 
-export default Cocktails
+export default CocktailCards

@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext"
 
 
 function NavBar() {
-    const { user, setUser } = useContext(UserContext)
+    const { setUser, setLoggedIn } = useContext(UserContext)
     const navigate = useNavigate()
 
     const handleLogout = () => {
@@ -13,7 +13,8 @@ function NavBar() {
         })
         .then(r => {
             if (r.ok) {
-                setUser(null)
+                setUser({})
+                setLoggedIn(false)
                 navigate("/")
             } else {
                 throw new Error("Failed to logout")

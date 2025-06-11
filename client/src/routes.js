@@ -1,5 +1,5 @@
 import App from "./components/App";
-import Cocktails from "./components/Cocktails";
+import CocktailCards from "./components/CocktailCards";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import MySpirits from "./components/MySpirits";
@@ -34,7 +34,7 @@ const routes = [
             },
             {
                 path: "/my-spirits/:id/cocktails",
-                element: <Cocktails/>
+                element: <CocktailCards/>
             }
         ]
     }

@@ -10,6 +10,7 @@ function SpiritProvider({children}) {
         .then(r => r.json())
         .then(spiritData => {
             setSpirits(spiritData)
+            // id, spirit name
         })
         .catch(error => {
             console.error('Error fetching spirits: ', error)
