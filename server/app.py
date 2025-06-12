@@ -152,14 +152,15 @@ class SpiritResource(Resource):
 class CocktailResource(Resource):
 
     def post(self):
-        if session.get('user_id'):
+        user_id = session.get("user_id")
+        if user_id:
             try:
                 json = request.get_json()
                 new_cocktail = Cocktail(
                     name=json['name'],
                     ingredients=json['ingredients'],
                     instructions=json['instructions'],
-                    user_id=json['user_id'],
+                    user_id=user_id,
                     spirit_id=json['spirit_id']
                 )
                 db.session.add(new_cocktail)
