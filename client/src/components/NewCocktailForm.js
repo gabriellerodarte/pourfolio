@@ -5,7 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { SpiritContext } from "../context/SpiritContext";
 
 
-function SpiritForm({ setShowCocktailForm }) {
+function NewCocktailForm({ setShowCocktailForm }) {
     const { id } = useParams()
     const { spirits } = useContext(SpiritContext)
 
@@ -44,14 +44,18 @@ function SpiritForm({ setShowCocktailForm }) {
                     <Field name="name" type="text"/>
                     <ErrorMessage name="name"/>
 
-                    <label htmlFor="spirit">Select a Spirit:</label>
-                    <Field as="select" name="spirit">
-                        <option value="">--Choose a Spirit--</option>
-                        {spirits?.map(spirit => (
-                            <option key={spirit.id} value={spirit.id}>{spirit.name}</option>
-                        ))}
-                    </Field>
-                    <ErrorMessage name="spirit"/>
+                    {!id && (
+                        <div>
+                            <label htmlFor="spirit">Select a Spirit:</label>
+                            <Field as="select" name="spirit">
+                                <option value="">--Choose a Spirit--</option>
+                                {spirits?.map(spirit => (
+                                    <option key={spirit.id} value={spirit.id}>{spirit.name}</option>
+                                ))}
+                            </Field>
+                            <ErrorMessage name="spirit"/>
+                        </div>
+                    )}
     
                     <label htmlFor="ingredients">Ingredients:</label>
                     <Field name="ingredients" as="textarea" placeholder="List ingredients here, one per line" rows="7"/>
@@ -71,4 +75,4 @@ function SpiritForm({ setShowCocktailForm }) {
     )
 }
 
-export default SpiritForm
+export default NewCocktailForm
