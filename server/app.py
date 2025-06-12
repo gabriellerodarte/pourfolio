@@ -28,6 +28,7 @@ class Signup(Resource):
             db.session.add(user)
             db.session.commit()
             session['user_id'] = user.id
+            print(f"Session after signup: {session}")
             return user.to_dict(rules=('-password_hash',)), 201
         except Exception as e:
             db.session.rollback()

@@ -7,10 +7,8 @@ function MySpirits() {
     const { user, userSpirits } = useContext(UserContext)
     const navigate = useNavigate()
 
-    console.log(userSpirits)
-
     if (!userSpirits) {
-        return <div>Add cocktail recipes to see spirits here!</div>
+        return <div>Add cocktail recipes to see your spirits here!</div>
     }
 
     return (
