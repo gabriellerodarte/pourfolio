@@ -7,8 +7,6 @@ function Spirits() {
     const { spirits } = useContext(SpiritContext)
     const [showSpiritForm, setShowSpiritForm] = useState(false)
 
-    console.log(spirits)
-
     return (
         <div>
             <p>Spirits Page</p>

@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext";
 import NavBar from "./NavBar";
 
 function App() {
-  const { loggedIn } = useContext(UserContext)
+  const { user, loggedIn } = useContext(UserContext)
 
   return (
     <div>
@@ -16,6 +16,11 @@ function App() {
       <main>
           <Outlet/>
       </main>
+      <footer>
+        {loggedIn && (
+          <p>Built by {user.username}🍸</p>
+        )}
+      </footer>
     </div>
   )
 }

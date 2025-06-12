@@ -41,7 +41,6 @@ function Login() {
                             id: userData.id,
                             username: userData.username
                         })
-                        console.log(userData.spirits)
                         setUserSpirits(userData.spirits)
                         setLoggedIn(true)
                         navigate("/")
