@@ -1,6 +1,7 @@
-import { useContext } from "react"
-import { NavLink, useNavigate } from "react-router-dom"
-import { UserContext } from "../context/UserContext"
+import { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+import "../styles/navbar.css";
 
 
 function NavBar() {
@@ -26,7 +27,7 @@ function NavBar() {
     return (
         <nav>
             <div>
-                <div>*POUR*folio</div>
+                <div>pourfolio</div>
                 <div>
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="my-spirits">View My Spirits</NavLink>

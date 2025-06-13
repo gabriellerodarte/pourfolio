@@ -16,7 +16,7 @@ function MySpirits() {
 
     return (
         <div>
-            <h2>Spirits</h2>
+            <h2>My Spirits</h2>
             {userSpirits.map(spirit => (
                 <div key={spirit.id} onClick={() => navigate(`/my-spirits/${spirit.id}/cocktails`)}>
                     <h3>{spirit?.name}</h3>

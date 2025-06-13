@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import NavBar from "./NavBar";
+import "../styles/app.css";
 
 function App() {
   const { user, loggedIn } = useContext(UserContext)
 
   return (
-    <div>
+    <div className="app-container">
       <header>
         {loggedIn && (
           <NavBar/>

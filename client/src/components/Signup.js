@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useContext } from 'react';
 import * as Yup from 'yup';
 import { UserContext } from '../context/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 
 function Signup() {
@@ -24,46 +24,52 @@ function Signup() {
     }
 
     return (
-        <Formik
-            initialValues={initialValues}
-            validationSchema={SignupSchema}
-            onSubmit={(values, {resetForm}) => {
-                fetch(`/signup`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(values)
-                })
-                .then(r => {
-                    if (!r.ok) throw new Error('Failed to create user')
-                    return r.json()
-                })
-                .then(newUserData => {
-                    setUser(newUserData)
-                    setLoggedIn(true)
-                    resetForm()
-                    navigate("/")
-                })
-            }}
-        >
-            <Form>
-                <label htmlFor="username">Username</label>
-                <Field name="username" type="text"/>
-                <ErrorMessage name="username"/>
+        <div>
+            <h1 onClick={() => navigate("/")}>pourfolio</h1>
+            <h3>Sign up to start browsing spirits<br/>and crafting cocktails</h3>
 
-                <label htmlFor="password">Password</label>
-                <Field name="password" type="password"/>
-                <ErrorMessage name="password"/>
+            <Formik
+                initialValues={initialValues}
+                validationSchema={SignupSchema}
+                onSubmit={(values, {resetForm}) => {
+                    fetch(`/signup`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(values)
+                    })
+                    .then(r => {
+                        if (!r.ok) throw new Error('Failed to create user')
+                        return r.json()
+                    })
+                    .then(newUserData => {
+                        setUser(newUserData)
+                        setLoggedIn(true)
+                        resetForm()
+                        navigate("/")
+                    })
+                }}
+            >
+                <Form>
+                    <label htmlFor="username">Username</label>
+                    <Field name="username" type="text"/>
+                    <ErrorMessage name="username"/>
+
+                    <label htmlFor="password">Password</label>
+                    <Field name="password" type="password"/>
+                    <ErrorMessage name="password"/>
 
 
-                <label htmlFor="confirmPassword">Confirm Password</label>
-                <Field name="confirmPassword" type="password"/>
-                <ErrorMessage name="confirmPassword"/>
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <Field name="confirmPassword" type="password"/>
+                    <ErrorMessage name="confirmPassword"/>
 
-                <button type="submit">Sign Up</button>
-            </Form>
-        </Formik>
+                    <button type="submit">Sign Up</button>
+                </Form>
+            </Formik>
+            <NavLink to="/login">Already have an account?</NavLink>
+        </div>
     )
 }
 

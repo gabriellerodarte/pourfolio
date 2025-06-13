@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup"
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Login() {
     const { setUser, setUserSpirits, setLoggedIn } = useContext(UserContext)
@@ -20,6 +20,7 @@ function Login() {
 
     return (
         <div>
+            <h1 onClick={() => navigate("/")}>pourfolio</h1>
             <Formik
                 initialValues={initialValues}
                 validationSchema={LoginSchema}
@@ -60,6 +61,10 @@ function Login() {
                     <button type="submit">Login</button>
                 </Form>
             </Formik>
+        <p>
+            Don't have an account? {" "}
+            <NavLink to="/signup">Sign up</NavLink>
+        </p>
         </div>
     )
 }

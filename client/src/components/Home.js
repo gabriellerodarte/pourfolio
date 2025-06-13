@@ -1,14 +1,15 @@
-import { useContext } from "react"
-import { Link } from "react-router-dom"
-import { UserContext } from "../context/UserContext"
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+import "../styles/home.css";
 
 
 function Home() {
     const { loggedIn } = useContext(UserContext)
 
     return (
-        <div>
-            <h1>Pourfolio</h1>
+        <div className="home-container">
+            <h1>pourfolio</h1>
             { loggedIn ? (
                 <div>
                     <p>Your curated cocktail recipe vault.</p>

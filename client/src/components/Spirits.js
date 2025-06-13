@@ -8,9 +8,10 @@ function Spirits() {
     const [showSpiritForm, setShowSpiritForm] = useState(false)
 
     console.log(spirits)
+
     return (
         <div>
-            <p>Spirits Page</p>
+            <h2>Spirits</h2>
             {spirits?.map(spirit => <p>{spirit.name}</p>)}
             {/* change above to individual spirit elements */}
             {showSpiritForm ? (
