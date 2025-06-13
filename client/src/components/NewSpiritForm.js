@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useContext } from "react";
 import * as Yup from "yup";
 import { SpiritContext } from "../context/SpiritContext";
+import "../styles/formstyles.css";
 
 
 function NewSpiritForm({ setShowSpiritForm }) {

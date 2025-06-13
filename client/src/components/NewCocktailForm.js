@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { SpiritContext } from "../context/SpiritContext";
+import "../styles/formstyles.css";
 
 
 function NewCocktailForm({ setShowCocktailForm }) {
@@ -53,17 +54,17 @@ function NewCocktailForm({ setShowCocktailForm }) {
                                     <option key={spirit.id} value={spirit.id}>{spirit.name}</option>
                                 ))}
                             </Field>
-                            <ErrorMessage name="spirit"/>
+                            <ErrorMessage name="spirit" component="div" className="error"/>
                         </div>
                     )}
     
                     <label htmlFor="ingredients">Ingredients:</label>
                     <Field name="ingredients" as="textarea" placeholder="List ingredients here, one per line" rows="7"/>
-                    <ErrorMessage name="ingredients"/>
+                    <ErrorMessage name="ingredients" component="div" className="error"/>
     
                     <label htmlFor="instructions">Instructions:</label>
                     <Field name="instructions" as="textarea" placeholder="Provide instructions here" rows="10"/>
-                    <ErrorMessage name="instructions"/>
+                    <ErrorMessage name="instructions" component="div" className="error"/>
     
                                         
                     <button type="submit">Create Cocktail</button>

@@ -37,11 +37,15 @@ function MySpirits() {
                         {showSpiritForm ? (
                             <NewSpiritForm setShowSpiritForm={setShowSpiritForm}/>
                         ) : (
-                            <button onClick={() => setShowSpiritForm(true)}>+ Add Spirit</button>
+                            <div className="centered-button">
+                                <button className="centered-button" onClick={() => setShowSpiritForm(true)}>+ Add Spirit</button>
+                            </div>
                         )}
                     </div>
                 ) : (
-                    <button onClick={() => setShowCocktailForm(true)}>+ New Cocktail</button>
+                    <div className="centered-button">
+                        <button onClick={() => setShowCocktailForm(true)}>+ New Cocktail</button>
+                    </div>
                 )}
             </div>
 
