@@ -81,7 +81,7 @@ class CheckSession(Resource):
     def get(self):
         user_id = session.get('user_id')
         if not user_id:
-            return {'error': 'Not logged in'}, 401
+            return {'user': 'Not logged in'}, 401
         
         user = User.query.filter_by(id=user_id).first()
         if not user:

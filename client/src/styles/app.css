@@ -21,8 +21,6 @@ header, footer {
 main {
   flex: 1;
   padding: 2rem;
-  max-width: 900px;
-  margin: auto;
 }
 
 footer {
