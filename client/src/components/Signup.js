@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import * as Yup from 'yup';
 import { UserContext } from '../context/UserContext';
 import { NavLink, useNavigate } from 'react-router-dom';
+import "../styles/auth.css";
 
 
 function Signup() {
@@ -24,7 +25,7 @@ function Signup() {
     }
 
     return (
-        <div>
+        <div className='auth-container'>
             <h1 onClick={() => navigate("/")}>pourfolio</h1>
             <h3>Sign up to start browsing spirits<br/>and crafting cocktails</h3>
 
@@ -51,19 +52,19 @@ function Signup() {
                     })
                 }}
             >
-                <Form>
+                <Form className='auth-form'>
                     <label htmlFor="username">Username</label>
                     <Field name="username" type="text"/>
-                    <ErrorMessage name="username"/>
+                    <ErrorMessage name="username" component="div" className="error"/>
 
                     <label htmlFor="password">Password</label>
                     <Field name="password" type="password"/>
-                    <ErrorMessage name="password"/>
+                    <ErrorMessage name="password" component="div" className="error"/>
 
 
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <Field name="confirmPassword" type="password"/>
-                    <ErrorMessage name="confirmPassword"/>
+                    <ErrorMessage name="confirmPassword" component="div" className="error"/>
 
                     <button type="submit">Sign Up</button>
                 </Form>

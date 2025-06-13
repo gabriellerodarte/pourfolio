@@ -124,8 +124,7 @@ class Logout(Resource):
 class SpiritResource(Resource):
 
     def get(self):
-        user_id = session.get('user_id')
-        if user_id:
+        if session.get('user_id'):
             try:
                 spirit_dicts = [{'id': spirit.id, 'name': spirit.name} for spirit in Spirit.query.all()]
                 return spirit_dicts, 200

@@ -3,6 +3,7 @@ import * as Yup from "yup"
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { NavLink, useNavigate } from "react-router-dom";
+import "../styles/auth.css";
 
 function Login() {
     const { setUser, setUserSpirits, setLoggedIn } = useContext(UserContext)
@@ -19,8 +20,9 @@ function Login() {
     }
 
     return (
-        <div>
+        <div className="auth-container">
             <h1 onClick={() => navigate("/")}>pourfolio</h1>
+            <br/>
             <Formik
                 initialValues={initialValues}
                 validationSchema={LoginSchema}
@@ -49,16 +51,16 @@ function Login() {
                     })
                 }}
             >
-                <Form>
+                <Form className="auth-form">
                     <label htmlFor="username">Username</label>
                     <Field name="username" type="text"/>
-                    <ErrorMessage name="username"/>
+                    <ErrorMessage name="username" component="div" className="error"/>
 
                     <label htmlFor="password">Password</label>
                     <Field name="password" type="password"/>
-                    <ErrorMessage name="password"/>
+                    <ErrorMessage name="password" component="div" className="error"/>
 
-                    <button type="submit">Login</button>
+                    <button type="submit">Log In</button>
                 </Form>
             </Formik>
         <p>
