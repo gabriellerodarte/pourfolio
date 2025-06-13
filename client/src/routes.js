@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import MySpirits from "./components/MySpirits";
 import SignUp from "./components/Signup";
 import Spirits from "./components/Spirits";
+import PrivateRoute from "./components/PrivateRoute";
 
 
 const routes = [
@@ -26,15 +27,27 @@ const routes = [
             },
             {
                 path: "/spirits",
-                element: <Spirits/>,
+                element: (
+                    <PrivateRoute>
+                        <Spirits/>
+                    </PrivateRoute>
+                )
             },
             {
                 path: "/my-spirits",
-                element: <MySpirits/>
+                element: (
+                    <PrivateRoute>
+                        <MySpirits/>
+                    </PrivateRoute>
+                )
             },
             {
                 path: "/my-spirits/:id/cocktails",
-                element: <CocktailCards/>
+                element: (
+                    <PrivateRoute>
+                        <CocktailCards/>
+                    </PrivateRoute>
+                )
             }
         ]
     }
