@@ -93,12 +93,14 @@ button:hover {
 }
 
 h5 {
+  text-align: center;
   margin-top: 2rem;
   font-weight: 500;
   color: #444;
 }
 
 .add-note {
+  text-align: center;
   font-size: 0.9rem;
   color: #666;
   margin-bottom: 1rem;
@@ -112,5 +114,14 @@ h5 {
 
 .centered-button button {
   padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+}
+
+.empty-message {
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 600px;
+  width: 100%;
+  color: #555;
   font-size: 1rem;
 }

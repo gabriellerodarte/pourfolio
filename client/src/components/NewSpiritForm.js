@@ -18,7 +18,6 @@ function NewSpiritForm({ setShowSpiritForm }) {
 
     return (
         <div>
-            <p>New Spirit Form</p>
             <Formik
                 initialValues={initialValues}
                 validationSchema={SpiritSchema}
@@ -46,10 +45,14 @@ function NewSpiritForm({ setShowSpiritForm }) {
                     <Field name="name" type="text"/>
                     <ErrorMessage name="name"/>
                     
-                    <button type="submit">Add Spirit</button>
+                    <div className="centered-button">
+                        <button type="submit">Add Spirit</button>
+                    </div>
                 </Form>
             </Formik>
-            <button onClick={() => setShowSpiritForm(false)}>Cancel</button>
+            <div className="centered-button">
+                <button onClick={() => setShowSpiritForm(false)}>Cancel</button>
+            </div>
         </div>
     )
 }

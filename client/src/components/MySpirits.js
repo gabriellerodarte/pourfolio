@@ -25,13 +25,15 @@ function MySpirits() {
                     </div>
                 ))}
                 {userSpirits.length == 0 && (
-                    <div>Add cocktail recipes to see your spirits here!</div>
+                    <p className="empty-message">Add cocktail recipes to see your spirits here!</p>
                 )}
             </div>
+            
             <div className="form-section">
                 {showCocktailForm ? (
                     <div>
                         <NewCocktailForm setShowCocktailForm={setShowCocktailForm}/>
+                        <hr></hr>
                         <h5>Don't see the spirit you're looking for?</h5>
                         <p className="add-note">Add a new spirit below to access it in the dropdown.</p>
                         {showSpiritForm ? (

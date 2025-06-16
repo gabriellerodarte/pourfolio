@@ -66,11 +66,14 @@ function NewCocktailForm({ setShowCocktailForm }) {
                     <Field name="instructions" as="textarea" placeholder="Provide instructions here" rows="10"/>
                     <ErrorMessage name="instructions" component="div" className="error"/>
     
-                                        
-                    <button type="submit">Create Cocktail</button>
+                    <div className="centered-button">
+                        <button type="submit">Create Cocktail</button>
+                    </div>                    
                 </Form>
             </Formik>
-            <button onClick={() => setShowCocktailForm(false)}>Cancel</button>
+            <div className="centered-button">
+                <button onClick={() => setShowCocktailForm(false)}>Cancel</button>
+            </div>
         </div>
 
     )
