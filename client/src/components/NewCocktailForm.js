@@ -6,7 +6,7 @@ import { SpiritContext } from "../context/SpiritContext";
 import "../styles/formstyles.css";
 
 
-function NewCocktailForm({ setShowCocktailForm }) {
+function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
     const { id } = useParams()
     const { spirits } = useContext(SpiritContext)
 
@@ -72,7 +72,14 @@ function NewCocktailForm({ setShowCocktailForm }) {
                 </Form>
             </Formik>
             <div className="centered-button">
-                <button onClick={() => setShowCocktailForm(false)}>Cancel</button>
+                <button 
+                    onClick={() => {
+                        setShowCocktailForm(false)
+                        setShowSpiritForm(false)
+                    }}
+                >
+                    Cancel
+                </button>
             </div>
         </div>
 

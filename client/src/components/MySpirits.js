@@ -32,7 +32,7 @@ function MySpirits() {
             <div className="form-section">
                 {showCocktailForm ? (
                     <div>
-                        <NewCocktailForm setShowCocktailForm={setShowCocktailForm}/>
+                        <NewCocktailForm setShowCocktailForm={setShowCocktailForm} setShowSpiritForm={setShowSpiritForm}/>
                         <hr></hr>
                         <h5>Don't see the spirit you're looking for?</h5>
                         <p className="add-note">Add a new spirit below to access it in the dropdown.</p>
