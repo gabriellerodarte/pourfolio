@@ -26,6 +26,8 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
 
     return (
         <div>
+            <hr></hr>
+            <h3 className="form-heading">Craft A New Cocktail</h3>
             <Formik
                 initialValues={initialValues}
                 validationSchema={CocktailSchema}
@@ -42,14 +44,14 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
             >
                 <Form>
                     <label htmlFor="name">Cocktail Name</label>
-                    <Field name="name" type="text"/>
+                    <Field name="name" type="text" placeholder="e.g. Dirty Martini"/>
                     <ErrorMessage name="name"/>
 
                     {!id && (
                         <div>
-                            <label htmlFor="spirit">Select a Spirit:</label>
+                            <label htmlFor="spirit">Spirit</label>
                             <Field as="select" name="spirit">
-                                <option value="">--Choose a Spirit--</option>
+                                <option value="">Select a Spirit</option>
                                 {spirits?.map(spirit => (
                                     <option key={spirit.id} value={spirit.id}>{spirit.name}</option>
                                 ))}
@@ -58,12 +60,24 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
                         </div>
                     )}
     
-                    <label htmlFor="ingredients">Ingredients:</label>
-                    <Field name="ingredients" as="textarea" placeholder="List ingredients here, one per line" rows="7"/>
+                    <div className="label-with-tooltip">
+                        <label htmlFor="ingredients">Ingredients</label>
+                        <div className="tooltip-wrapper">
+                            <span className="tooltip-icon">?</span>
+                            <div className="tooltip-text">List one ingredient per line, i.e.: 2 oz gin</div>
+                        </div>
+                    </div>
+                    <Field name="ingredients" as="textarea" placeholder={`e.g.\n2 oz gin\n0.5 oz olive brine\n0.25 oz dry vermouth\nPimento stuffed olives`} rows="7"/>
                     <ErrorMessage name="ingredients" component="div" className="error"/>
     
-                    <label htmlFor="instructions">Instructions:</label>
-                    <Field name="instructions" as="textarea" placeholder="Provide instructions here" rows="10"/>
+                    <div className="label-with-tooltip">
+                        <label htmlFor="ingredients">Instructions</label>
+                        <div className="tooltip-wrapper">
+                            <span className="tooltip-icon">?</span>
+                            <div className="tooltip-text">Include steps like shake/stir/build, glassware, and garnish.</div>
+                        </div>
+                    </div>
+                    <Field name="instructions" as="textarea" placeholder={`e.g.\nAdd gin, olive brine, and dry vermouth to cocktail shaker. Fill with ice. Shake until the outside of the shaker feels chilled. Strain into martini glass.\n\nGarnish with 3 olives.`} rows="10"/>
                     <ErrorMessage name="instructions" component="div" className="error"/>
     
                     <div className="centered-button">

@@ -41,7 +41,7 @@ function NewSpiritForm({ setShowSpiritForm }) {
                 }}
             >
                 <Form>
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name">Spirit Name</label>
                     <Field name="name" type="text"/>
                     <ErrorMessage name="name"/>
                     

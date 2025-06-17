@@ -3,7 +3,7 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import NewCocktailForm from "../components/NewCocktailForm";
 import NewSpiritForm from "./NewSpiritForm";
-import "../styles/myspirits.css";
+import "../styles/spirits.css";
 
 function MySpirits() {
     const { userSpirits } = useContext(UserContext)
@@ -28,7 +28,6 @@ function MySpirits() {
                     <p className="empty-message">Add cocktail recipes to see your spirits here!</p>
                 )}
             </div>
-            
             <div className="form-section">
                 {showCocktailForm ? (
                     <div>
