@@ -164,7 +164,14 @@ class CocktailResource(Resource):
                 )
                 db.session.add(new_cocktail)
                 db.session.commit()
-                return new_cocktail.to_dict(), 201
+                new_cocktail_dict = {
+                            'id': new_cocktail.id,
+                            'name': new_cocktail.name,
+                            'ingredients': new_cocktail.ingredients,
+                            'instructions': new_cocktail.instructions,
+                        }
+
+                return new_cocktail_dict, 201
             except Exception as e:
                 return {'errors':['validation errors', str(e)]}, 400
         else:

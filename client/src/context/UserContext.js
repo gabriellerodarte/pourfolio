@@ -7,6 +7,8 @@ function UserProvider({ children }) {
     const [userSpirits, setUserSpirits] = useState([])
     const [loggedIn, setLoggedIn] = useState(false)
 
+    console.log(userSpirits)
+
     useEffect(() => {
         fetch(`/check_session`)
         .then(r => {

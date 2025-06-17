@@ -3,12 +3,14 @@ import { useParams } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { SpiritContext } from "../context/SpiritContext";
+import { UserContext } from "../context/UserContext";
 import "../styles/formstyles.css";
 
 
 function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
     const { id } = useParams()
     const { spirits } = useContext(SpiritContext)
+    const { userSpirits, setUserSpirits } = useContext(UserContext)
 
     const CocktailSchema = Yup.object().shape({
         name: Yup.string().required("Name is required."),
@@ -32,14 +34,48 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
                 initialValues={initialValues}
                 validationSchema={CocktailSchema}
                 onSubmit={(values, {resetForm}) => {
-                    const ingredientsArray = values.ingredients.split('\n').map(line => line.trim()).filter(line => line);
-                    console.log('Form submitted with values:', {
-                        ...values,
-                        ingredients: ingredientsArray,
-                        instructions: values.instructions
-                    });
+                    // const ingredientsArray = values.ingredients.split('\n').map(line => line.trim()).filter(line => line);
+                    const newCocktail = {
+                        name: values.name,
+                        spirit_id: parseInt(values.spirit),
+                        ingredients: values.ingredients,
+                        instructions: values.instructions,
+                    }
                     // fetch to submit cocktail 
-                    resetForm()
+                    fetch(`/cocktails`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(newCocktail)
+                    })
+                    .then(r => {
+                        if (!r.ok) throw new Error('Error creating cocktail.')
+                            return r.json()
+                    })
+                    .then(newCocktailData => {
+                        setUserSpirits((prevSpirits) => {
+                            const spiritIndex = prevSpirits.findIndex(spirit => spirit.id === newCocktail.spirit_id)
+                            if (spiritIndex > -1) {
+                                const updatedSpirits = [...prevSpirits]
+                                updatedSpirits[spiritIndex].cocktails.push(newCocktailData)
+                                return [...updatedSpirits]
+                            } else {
+                                const spirit = spirits.find(spirit => spirit.id === newCocktail.spirit_id)
+                                const newSpirit = {
+                                    ...spirit,
+                                    cocktails: [
+                                        newCocktailData
+                                    ]
+                                }
+                                return [...prevSpirits, newSpirit]
+                            }
+
+                        })
+                        resetForm()
+                        setShowCocktailForm(false)
+                        setShowSpiritForm(false)
+                    })
                 }}
             >
                 <Form>
@@ -49,14 +85,14 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
 
                     {!id && (
                         <div>
-                            <label htmlFor="spirit">Spirit</label>
+                            <label htmlFor="spirit_id">Spirit</label>
                             <Field as="select" name="spirit">
                                 <option value="">Select a Spirit</option>
                                 {spirits?.map(spirit => (
                                     <option key={spirit.id} value={spirit.id}>{spirit.name}</option>
                                 ))}
                             </Field>
-                            <ErrorMessage name="spirit" component="div" className="error"/>
+                            <ErrorMessage name="spirit_id" component="div" className="error"/>
                         </div>
                     )}
     
