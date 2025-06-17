@@ -6,6 +6,7 @@ import MySpirits from "./components/MySpirits";
 import SignUp from "./components/Signup";
 import Spirits from "./components/Spirits";
 import PrivateRoute from "./components/PrivateRoute";
+import CocktailRecipe from "./components/CocktailRecipe";
 
 
 const routes = [
@@ -46,6 +47,14 @@ const routes = [
                 element: (
                     <PrivateRoute>
                         <CocktailCards/>
+                    </PrivateRoute>
+                )
+            },
+            {
+                path: "/my-spirits/:spirit_id/cocktails/:id",
+                element: (
+                    <PrivateRoute>
+                        <CocktailRecipe/>
                     </PrivateRoute>
                 )
             }

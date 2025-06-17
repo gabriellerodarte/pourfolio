@@ -1,32 +1,38 @@
 import { useContext, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../context/UserContext"
 import NewCocktailForm from "./NewCocktailForm"
+import "../styles/cocktails.css"
 
 
 function CocktailCards() {
     const { userSpirits } = useContext(UserContext)
     const { id } = useParams()
+    const navigate = useNavigate()
     const [showCocktailForm, setShowCocktailForm] = useState(false)
 
     const spirit = userSpirits.find(spirit => spirit.id.toString() === id)
 
     return (
         <div>
-            <div>
-                <p>My {spirit?.name} Cocktails</p>
+            <h3>My {spirit?.name} Cocktails</h3>
+            <div className="cocktail-grid">
                 {spirit?.cocktails?.map(cocktail => (
-                    <div>
-                        <h4>{cocktail.name}</h4>
-                        <p>{cocktail.ingredients}</p>
-                        <p>{cocktail.instructions}</p>
+                    <div
+                        key={cocktail.id}
+                        className="cocktail-card"
+                        onClick={() => navigate(`/my-spirits/${id}/cocktails/${cocktail.id}`)}
+                    >
+                        {cocktail.name}
                     </div>
                 ))}
             </div>
             {showCocktailForm ? (
                 <NewCocktailForm setShowCocktailForm={setShowCocktailForm}/>
             ) : (
-                <button onClick={() => setShowCocktailForm(true)}>+ New {spirit.name} Cocktail</button>
+                <div className="centered-button">
+                    <button onClick={() => setShowCocktailForm(true)}>+ New {spirit.name} Cocktail</button>
+                </div>
             )}
         </div>
     )

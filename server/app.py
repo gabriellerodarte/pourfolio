@@ -46,26 +46,29 @@ class Login(Resource):
             user = User.query.filter_by(username=username).first()
             if user and user.authenticate(json.get('password')):
                 session['user_id'] = user.id
-                user_dict = {
-                    'id': user.id,
-                    'username': user.username,
-                    'spirits': [
-                        {
+                spirits = user.spirits
+
+                unique_spirits = {}
+
+                for cocktail in user.cocktails:
+                    spirit = cocktail.spirit
+                    if spirit.id not in unique_spirits:
+                        unique_spirits[spirit.id] = {
                             'id': spirit.id,
                             'name': spirit.name,
-                            'cocktails': [
-                                {
-                                    'id': cocktail.id,
-                                    'name': cocktail.name,
-                                    'ingredients': cocktail.ingredients,
-                                    'instructions': cocktail.instructions
-                                }
-                                for cocktail in spirit.cocktails if cocktail.user_id == user.id
-                            ]
+                            'cocktails': []
                         }
-                        for spirit in user.spirits
-                    ]
-                }
+
+                        unique_spirits[spirit.id]['cocktails'].append({
+                            'id': cocktail.id,
+                            'name': cocktail.name,
+                            'ingredients': cocktail.ingredients,
+                            'instructions': cocktail.instructions
+                        })
+
+                user_dict = user.to_dict()
+                user_dict['spirits'] = list(unique_spirits.values())
+
                 return user_dict, 200
 
         
@@ -84,29 +87,31 @@ class CheckSession(Resource):
             return {'user': 'Not logged in'}, 401
         
         user = User.query.filter_by(id=user_id).first()
+
         if not user:
-            return {'error': 'User not found'}, 404
+            return {'error': 'User not found'}, 404  
         
-        user_dict = {
-            'id': user.id,
-            'username': user.username,
-            'spirits': [
-                {
+        unique_spirits = {}
+
+        for cocktail in user.cocktails:
+            spirit = cocktail.spirit
+            if spirit.id not in unique_spirits:
+                unique_spirits[spirit.id] = {
                     'id': spirit.id,
                     'name': spirit.name,
-                    'cocktails': [
-                        {
-                            'id': cocktail.id,
-                            'name': cocktail.name,
-                            'ingredients': cocktail.ingredients,
-                            'instructions': cocktail.instructions
-                        }
-                        for cocktail in spirit.cocktails if cocktail.user_id == user.id
-                    ]
+                    'cocktails': []
                 }
-                for spirit in user.spirits
-            ]
-        }
+
+                unique_spirits[spirit.id]['cocktails'].append({
+                    'id': cocktail.id,
+                    'name': cocktail.name,
+                    'ingredients': cocktail.ingredients,
+                    'instructions': cocktail.instructions
+                })
+
+        user_dict = user.to_dict()
+        user_dict['spirits'] = list(unique_spirits.values())
+
         return user_dict, 200
 
 class Logout(Resource):
