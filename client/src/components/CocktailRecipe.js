@@ -11,8 +11,6 @@ function CocktailRecipe() {
     const spirit = userSpirits.find(spirit => spirit.id === parseInt(spiritId))
     const cocktail = spirit.cocktails.find(cocktail => cocktail.id === parseInt(id))
 
-    console.log(cocktail)
-
     return (
         <div>
             <p className="back-link" onClick={() => navigate(`/my-spirits/${spiritId}/cocktails`)}>
@@ -34,7 +32,7 @@ function CocktailRecipe() {
                         <p className="recipe-block">{cocktail.instructions}</p>
                     </div>
                     <div className="recipe-actions">
-                        <button className="edit-btn">edit</button>
+                        <button onClick={() => navigate(`/my-spirits/${spiritId}/cocktails/${id}/edit`)} className="edit-btn">edit</button>
                         <button className="delete-btn">delete</button>
                     </div>
                 </div>
