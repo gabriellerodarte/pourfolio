@@ -216,6 +216,27 @@ class CocktailById(Resource):
         except Exception as e:
             return {"errors":["validation errors", str(e)]}, 400
 
+    def delete(self, id):
+        user_id = session.get("user_id")
+        if not user_id:
+            return {'user': 'Not logged in'}, 401
+
+        cocktail = Cocktail.query.filter_by(id=id).first()
+
+        if not cocktail:
+            return {"error": "Cocktail not found"}, 404
+
+        if user_id != cocktail.user.id:
+            return {'error': 'Unauthorized to access this resource'}, 401
+
+        try:                
+            db.session.delete(cocktail)
+            db.session.commit()
+
+            return "", 204
+        except Exception as e:
+            return {"error": str(e)}, 400
+
 
 @app.route('/')
 def index():
