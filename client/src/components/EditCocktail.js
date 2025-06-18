@@ -31,7 +31,38 @@ function EditCocktail() {
                 initialValues={initialValues}
                 validationSchema={CocktailSchema}
                 onSubmit={( values, {resetForm}) => {
-                    // patch request logic
+                    fetch(`/cocktails/${id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(values)
+                    })
+                    .then(r => {
+                        if (!r.ok) throw new Error('Error updating cocktail', r)
+                        return r.json()
+                    })
+                    .then(updatedCocktail => {
+                        console.log(updatedCocktail)
+                        setUserSpirits((prevSpirits) => (
+                            prevSpirits.map(spirit => {
+                                if (spirit.id === parseInt(spiritId)) {
+                                    return {
+                                        ...spirit,
+                                        cocktails: spirit.cocktails.map(cocktail => (
+                                            cocktail.id === parseInt(id) ? updatedCocktail : cocktail
+                                        ))
+                                    }
+                                }
+                                return spirit
+                            }) 
+                        ))
+                        resetForm()
+                        navigate(`/my-spirits/${spiritId}/cocktails/${id}`)
+                    })
+                    .catch(error => {
+                        console.error('Error:', error)
+                    })
                 }}
             >
                 <Form>

@@ -182,6 +182,40 @@ class CocktailResource(Resource):
         else:
             return {'error': 'Unauthorized to access this resource'}, 401
 
+class CocktailById(Resource):
+
+    def patch(self, id):
+        user_id = session.get("user_id")
+        if not user_id:
+            return {'user': 'Not logged in'}, 401
+
+        cocktail = Cocktail.query.filter_by(id=id).first()
+
+        if not cocktail:
+            return {"error": "Cocktail not found"}, 404
+
+        if user_id != cocktail.user.id:
+            return {'error': 'Unauthorized to access this resource'}, 401
+
+        try:                
+            json = request.get_json()
+            for attr, value in json.items():
+                setattr(cocktail, attr, value)
+            
+            db.session.add(cocktail)
+            db.session.commit()
+
+            updated_cocktail_dict = {
+                'id': cocktail.id,
+                'name': cocktail.name,
+                'ingredients': cocktail.ingredients,
+                'instructions': cocktail.instructions
+            }
+
+            return updated_cocktail_dict, 200
+        except Exception as e:
+            return {"errors":["validation errors", str(e)]}, 400
+
 
 @app.route('/')
 def index():
@@ -193,6 +227,7 @@ api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Logout, '/logout', endpoint='logout')
 api.add_resource(SpiritResource, '/spirits', endpoint='spirits')
 api.add_resource(CocktailResource, '/cocktails', endpoint='cocktails')
+api.add_resource(CocktailById, '/cocktails/<int:id>', endpoint='cocktail_by_id')
 
 
 if __name__ == '__main__':
