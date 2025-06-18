@@ -125,7 +125,9 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
                 <button 
                     onClick={() => {
                         setShowCocktailForm(false)
-                        setShowSpiritForm(false)
+                        if (setShowSpiritForm) {
+                            setShowSpiritForm(false)
+                        }
                     }}
                 >
                     Cancel

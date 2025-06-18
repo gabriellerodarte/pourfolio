@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
 import { SpiritContext } from "../context/SpiritContext"
 import NewSpiritForm from "./NewSpiritForm"
+import "../styles/spirits.css"
 
 function Spirits() {
     const { spirits } = useContext(SpiritContext)
@@ -8,7 +9,7 @@ function Spirits() {
 
     return (
         <div>
-            <h2>Spirits</h2>
+            <h2 className="page-title">all spirits</h2>
             <div className="all-spirit-grid">
                 {spirits?.map(spirit => (
                     <div key={spirit.id} className="all-spirit-card">

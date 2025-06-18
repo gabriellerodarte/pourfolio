@@ -159,3 +159,11 @@ h4 {
   font-weight: 500;
   color: #444;
 }
+
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #222;
+  text-transform: lowercase; /* optional, if you're using lowercase titles */
+}

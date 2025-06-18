@@ -15,11 +15,11 @@ function CocktailCards() {
 
     return (
         <div>
-            <p onClick={() => navigate(`/my-spirits`)}>
+            <p className="back-link" onClick={() => navigate(`/my-spirits`)}>
                 ← back to my spirits
             </p>
-
-            <h3>{spirit?.name}</h3>
+            <br></br>
+            <h2 className="page-title">{spirit?.name}</h2>
             <div className="cocktail-grid">
                 {spirit?.cocktails?.map(cocktail => (
                     <div

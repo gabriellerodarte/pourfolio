@@ -18,6 +18,7 @@
   color: #333;
   transition: background-color 0.2s ease, transform 0.1s ease;
   cursor: pointer;
+  text-transform: lowercase;
 }
 
 .cocktail-card:hover {
@@ -36,13 +37,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.top-nav-row {
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: 1rem;
-  align-self: left;
 }
 
 .recipe-card {
@@ -107,7 +101,7 @@
   cursor: pointer;
   transition: color 0.2s ease;
   max-width: 600px;
-  margin: 0 auto 1.5rem auto; /* centered horizontally */
+  /* margin: 0 auto 1.5rem auto; centered horizontally */
   text-align: left; 
 }
 
