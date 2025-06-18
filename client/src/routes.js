@@ -51,7 +51,7 @@ const routes = [
                 )
             },
             {
-                path: "/my-spirits/:spirit_id/cocktails/:id",
+                path: "/my-spirits/:spiritId/cocktails/:id",
                 element: (
                     <PrivateRoute>
                         <CocktailRecipe/>

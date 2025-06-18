@@ -11,11 +11,15 @@ function CocktailCards() {
     const navigate = useNavigate()
     const [showCocktailForm, setShowCocktailForm] = useState(false)
 
-    const spirit = userSpirits.find(spirit => spirit.id.toString() === id)
+    const spirit = userSpirits.find(spirit => spirit.id === parseInt(id))
 
     return (
         <div>
-            <h3>My {spirit?.name} Cocktails</h3>
+            <p onClick={() => navigate(`/my-spirits`)}>
+                ← back to my spirits
+            </p>
+
+            <h3>{spirit?.name}</h3>
             <div className="cocktail-grid">
                 {spirit?.cocktails?.map(cocktail => (
                     <div

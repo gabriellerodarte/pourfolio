@@ -13,7 +13,7 @@ function MySpirits() {
 
     return (
         <div className="my-spirits-container">
-            <h2>My Spirits</h2>
+            <h2>my spirits</h2>
             <div className="spirit-card-list">
                 {userSpirits.map(spirit => (
                     <div key={spirit.id} className="spirit-card" onClick={() => navigate(`/my-spirits/${spirit.id}/cocktails`)}>
