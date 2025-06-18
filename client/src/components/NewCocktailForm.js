@@ -74,7 +74,9 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
                         })
                         resetForm()
                         setShowCocktailForm(false)
-                        setShowSpiritForm(false)
+                        if (setShowSpiritForm) {
+                            setShowSpiritForm(false)
+                        }
                     })
                 }}
             >
