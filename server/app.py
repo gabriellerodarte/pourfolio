@@ -48,6 +48,7 @@ class Login(Resource):
 
             username = json.get('username')
             user = User.query.filter_by(username=username).first()
+
             if user and user.authenticate(json.get('password')):
                 session['user_id'] = user.id
                 spirits = user.spirits
@@ -76,7 +77,7 @@ class Login(Resource):
                 return user_dict, 200
 
         
-            return {'error': 'incorrect username or password'}, 401
+            return {'error': 'Incorrect username or password'}, 401
         
         except Exception as e:
             # Log error details for debugging

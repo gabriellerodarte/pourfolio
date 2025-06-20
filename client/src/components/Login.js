@@ -36,8 +36,8 @@ function Login() {
                     })
                     .then(r => {
                         if (!r.ok) {
-                            return r.text().then(errorText => {
-                                return Promise.reject(errorText)
+                            return r.json().then(errorData => {
+                                return Promise.reject(errorData)
                             })
                         }
                         return r.json()
@@ -52,8 +52,8 @@ function Login() {
                         navigate("/")
                         resetForm()
                     })
-                    .catch(errorText => {
-                        console.log("Login error:", errorText)
+                    .catch(errorData => {
+                        console.log("Login error:", errorData)
                         resetForm()
                     })
                 }}
