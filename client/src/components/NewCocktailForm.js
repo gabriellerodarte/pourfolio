@@ -50,8 +50,12 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
                         body: JSON.stringify(newCocktail)
                     })
                     .then(r => {
-                        if (!r.ok) throw new Error('Error creating cocktail.')
-                            return r.json()
+                        if (!r.ok) {
+                            return r.text().then(errorText => {
+                                return Promise.reject(errorText)
+                            })
+                        }
+                        return r.json()
                     })
                     .then(newCocktailData => {
                         setUserSpirits((prevSpirits) => {
@@ -78,6 +82,10 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
                             setShowSpiritForm(false)
                         }
                     })
+                    .catch(errorText => {
+                        console.log("Error:", errorText)
+                    })
+
                 }}
             >
                 <Form>

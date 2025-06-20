@@ -42,8 +42,13 @@ function CocktailRecipe() {
                 setShowModal(false)
 
             } else {
-                console.error("Failed to delete cocktail:", r.status)
+                return r.text().then(errorText => {
+                    return Promise.reject(errorText)
+                })
             }
+        })
+        .catch(errorText => {
+            console.log("Error:", errorText)
         })
     }
 

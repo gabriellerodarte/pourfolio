@@ -6,8 +6,8 @@ import NewSpiritForm from "./NewSpiritForm";
 import "../styles/spirits.css";
 
 function MySpirits() {
-    const { userSpirits } = useContext(UserContext)
     const navigate = useNavigate()
+    const { userSpirits } = useContext(UserContext)
     const [showCocktailForm, setShowCocktailForm] = useState(false)
     const [showSpiritForm, setShowSpiritForm] = useState(false)
 

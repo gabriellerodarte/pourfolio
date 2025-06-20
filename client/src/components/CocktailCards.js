@@ -6,9 +6,9 @@ import "../styles/cocktails.css"
 
 
 function CocktailCards() {
-    const { userSpirits } = useContext(UserContext)
-    const { id } = useParams()
     const navigate = useNavigate()
+    const { id } = useParams()
+    const { userSpirits } = useContext(UserContext)
     const [showCocktailForm, setShowCocktailForm] = useState(false)
 
     const spirit = userSpirits.find(spirit => spirit.id === parseInt(id))

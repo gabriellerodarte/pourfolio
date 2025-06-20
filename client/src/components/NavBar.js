@@ -19,9 +19,15 @@ function NavBar() {
                 setLoggedIn(false)
                 navigate("/")
             } else {
-                throw new Error("Failed to logout")
+                return r.text().then(errorText => {
+                    return Promise.reject(errorText)
+                })
             }
         })
+        .catch(errorText => {
+            console.log("Error:", errorText)
+        })
+
     }
 
     return (

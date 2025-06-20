@@ -32,7 +32,7 @@ function Signup() {
             <Formik
                 initialValues={initialValues}
                 validationSchema={SignupSchema}
-                onSubmit={(values, {resetForm}) => {
+                onSubmit={(values, { resetForm, setErrors }) => {
                     fetch(`/signup`, {
                         method: 'POST',
                         headers: {
@@ -41,7 +41,11 @@ function Signup() {
                         body: JSON.stringify(values)
                     })
                     .then(r => {
-                        if (!r.ok) console.error('Failed to create user:', r.status)
+                        if (!r.ok) {
+                            return r.json().then(errorData => {
+                                return Promise.reject(errorData)
+                            })
+                        }
                         return r.json()
                     })
                     .then(newUserData => {
@@ -50,7 +54,10 @@ function Signup() {
                         resetForm()
                         navigate("/")
                     })
-                    .catch(error => console.error(error))
+                    .catch(errorData => {
+                        console.log("Signup error:", errorData)
+                        setErrors({ username: errorData.error })
+                    })
                 }}
             >
                 <Form className='auth-form'>

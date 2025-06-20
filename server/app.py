@@ -22,7 +22,8 @@ class Signup(Resource):
 
         username = json.get('username')
         if User.query.filter_by(username=username).first():
-            return {'error': 'Username already in use'}, 400
+            return {'error': 'Username already exists'}, 400
+
         try:
             user = User(
                 username=username

@@ -30,7 +30,11 @@ function NewSpiritForm({ setShowSpiritForm }) {
                         body: JSON.stringify(values)
                     })
                     .then(r => {
-                        if (!r.ok) throw new Error("Error creating spirit")
+                        if (!r.ok) {
+                            return r.text().then(errorText => {
+                                return Promise.reject(errorText)
+                            })
+                        }
                         return r.json()
                     })
                     .then(newSpirit => {
@@ -38,6 +42,10 @@ function NewSpiritForm({ setShowSpiritForm }) {
                         resetForm()
                         setShowSpiritForm(false)
                     })
+                    .catch(errorText => {
+                        console.log("Error:", errorText)
+                    })
+
                 }}
             >
                 <Form>

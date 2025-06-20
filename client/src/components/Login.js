@@ -35,8 +35,11 @@ function Login() {
                         body: JSON.stringify(values)
                     })
                     .then(r => {
-                        if (!r.ok) throw new Error('Invalid username or password')
-                            // don't want to error out on invalid username/password - add proper error messaging
+                        if (!r.ok) {
+                            return r.text().then(errorText => {
+                                return Promise.reject(errorText)
+                            })
+                        }
                         return r.json()
                     })
                     .then(userData => {
@@ -47,6 +50,10 @@ function Login() {
                         setUserSpirits(userData.spirits)
                         setLoggedIn(true)
                         navigate("/")
+                        resetForm()
+                    })
+                    .catch(errorText => {
+                        console.log("Login error:", errorText)
                         resetForm()
                     })
                 }}

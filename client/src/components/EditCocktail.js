@@ -39,7 +39,11 @@ function EditCocktail() {
                         body: JSON.stringify(values)
                     })
                     .then(r => {
-                        if (!r.ok) throw new Error('Error updating cocktail', r)
+                        if (!r.ok) {
+                            return r.text().then(errorText => {
+                                return Promise.reject(errorText)
+                            })
+                        }
                         return r.json()
                     })
                     .then(updatedCocktail => {
@@ -60,8 +64,9 @@ function EditCocktail() {
                         resetForm()
                         navigate(`/my-spirits/${spiritId}/cocktails/${id}`)
                     })
-                    .catch(error => {
-                        console.error('Error:', error)
+                    .catch(errorText => {
+                        console.log("Error:", errorText)
+                        resetForm()
                     })
                 }}
             >
