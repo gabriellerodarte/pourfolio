@@ -60,7 +60,9 @@ function Login() {
                     <Field name="password" type="password"/>
                     <ErrorMessage name="password" component="div" className="error"/>
 
-                    <button type="submit">Log In</button>
+                    <div className="centered-button">
+                        <button type="submit">Log In</button>
+                    </div>
                 </Form>
             </Formik>
         <p>
