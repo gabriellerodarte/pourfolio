@@ -7,11 +7,6 @@ function UserProvider({ children }) {
     const [userSpirits, setUserSpirits] = useState([])
     const [loggedIn, setLoggedIn] = useState(false)
 
-    console.log({
-        user: user,
-        spirits: userSpirits
-    })
-
     useEffect(() => {
         fetch(`/check_session`)
         .then(r => {
@@ -19,7 +14,6 @@ function UserProvider({ children }) {
             throw new Error('Failed to fetch session')
         })
         .then(userData => {
-            console.log(userData)
             setUser({
                 id: userData.id,
                 username: userData.username

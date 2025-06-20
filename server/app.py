@@ -20,9 +20,12 @@ class Signup(Resource):
         if 'username' not in json or 'password' not in json:
             return {'error':'Username and password are requried.'}, 400
 
+        username = json.get('username')
+        if User.query.filter_by(username=username).first():
+            return {'error': 'Username already in use'}, 400
         try:
             user = User(
-                username=json['username']
+                username=username
             )
             user.password_hash = json['password']
             db.session.add(user)

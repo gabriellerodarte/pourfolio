@@ -8,12 +8,14 @@ import Spirits from "./components/Spirits";
 import PrivateRoute from "./components/PrivateRoute";
 import CocktailRecipe from "./components/CocktailRecipe";
 import EditCocktail from "./components/EditCocktail";
+import ErrorPage from "./components/ErrorPage";
 
 
 const routes = [
     {
         path: "/",
         element: <App/>,
+        errorElement: <ErrorPage/>,
         children: [
             {
                 path: "/",

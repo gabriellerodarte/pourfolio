@@ -41,7 +41,7 @@ function Signup() {
                         body: JSON.stringify(values)
                     })
                     .then(r => {
-                        if (!r.ok) throw new Error('Failed to create user')
+                        if (!r.ok) console.error('Failed to create user:', r.status)
                         return r.json()
                     })
                     .then(newUserData => {
@@ -50,6 +50,7 @@ function Signup() {
                         resetForm()
                         navigate("/")
                     })
+                    .catch(error => console.error(error))
                 }}
             >
                 <Form className='auth-form'>
@@ -66,7 +67,9 @@ function Signup() {
                     <Field name="confirmPassword" type="password"/>
                     <ErrorMessage name="confirmPassword" component="div" className="error"/>
 
-                    <button type="submit">Sign Up</button>
+                    <div className='centered-button'>
+                        <button type="submit">Sign Up</button>
+                    </div>
                 </Form>
             </Formik>
             <NavLink to="/login">Already have an account?</NavLink>

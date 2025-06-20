@@ -10,7 +10,7 @@ class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, unique=True)
+    username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String, nullable=False)
 
     cocktails = db.relationship('Cocktail', back_populates='user', cascade='all, delete-orphan')
@@ -80,7 +80,7 @@ class Spirit(db.Model, SerializerMixin):
     __tablename__ = 'spirits'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, unique=True)
+    name = db.Column(db.String, unique=True, nullable=False)
 
     cocktails = db.relationship('Cocktail', back_populates='spirit', cascade='all, delete-orphan')
     users = association_proxy('cocktails', 'user')
