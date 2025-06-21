@@ -1,12 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/auth.css";
 
 function Login() {
-    const { setUser, setUserSpirits, setLoggedIn } = useContext(UserContext)
+    const { setUser, setUserSpirits, setLoggedIn, login } = useContext(UserContext)
     const navigate = useNavigate()
 
     const LoginSchema = Yup.object().shape({

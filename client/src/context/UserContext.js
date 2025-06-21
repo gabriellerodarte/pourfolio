@@ -32,10 +32,9 @@ function UserProvider({ children }) {
             const res = await fetch(`/cocktails/${cocktailId}`, {
                 method: 'DELETE',
             })
-            
             if (!res.ok) {
-                const data = await res.json()
-                return { error: data || "Error deleting cocktail"} 
+                const error = await res.json()
+                return { error: error || "Error deleting cocktail"} 
             } else {
                 setUserSpirits((prevSpirits) => {
                     const spiritIndex = prevSpirits.findIndex(s => s.id === parseInt(spiritId))
@@ -55,10 +54,8 @@ function UserProvider({ children }) {
                 })
                 return { success: "Cocktail successfully deleted"}
             }
-            
-
         } catch (err) {
-            console.log(err)
+            console.error(err)
             return { error: "Error deleting cocktail. Please try again."}
         }
     }

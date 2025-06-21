@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -9,8 +9,12 @@ import "../styles/formstyles.css";
 
 function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
     const { id } = useParams()
-    const { spirits } = useContext(SpiritContext)
+    const { spirits, getSpirits } = useContext(SpiritContext)
     const { userSpirits, setUserSpirits } = useContext(UserContext)
+
+    useEffect(() => {
+        getSpirits()
+    }, [getSpirits])
 
     const CocktailSchema = Yup.object().shape({
         name: Yup.string().required("Name is required."),

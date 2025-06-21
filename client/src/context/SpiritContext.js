@@ -1,30 +1,32 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "./UserContext";
+import React, { useCallback, useState } from "react";
 
 const SpiritContext = React.createContext()
 
 function SpiritProvider({children}) {
-    const { user, loggedIn } = useContext(UserContext)
     const [spirits, setSpirits] = useState([])
 
-    useEffect(() => {
-        if (loggedIn && user) {
-            try {
-                fetch(`/spirits`)
-                .then(r => r.json())
-                .then(spiritData => {
-                    setSpirits(spiritData)
-                    // id, spirit name
-                })
-            } catch (error) {
-                console.error('Error fetching spirits.', error)
-            }
-        }
+    // useEffect(() => {
+    //     if (loggedIn && user) {
+    //         getSpirits()
+    //     }
 
-    }, [loggedIn, user])
+    // }, [loggedIn, user])
+
+    const getSpirits = useCallback(() => {
+        try {
+            fetch(`/spirits`)
+            .then(r => r.json())
+            .then(spiritData => {
+                setSpirits(spiritData)
+                // id, spirit name
+            })
+        } catch (error) {
+            console.error('Error fetching spirits.', error)
+        }
+    }, [])
 
     return (
-        <SpiritContext.Provider value={{spirits, setSpirits}}>
+        <SpiritContext.Provider value={{spirits, setSpirits, getSpirits}}>
             {children}
         </SpiritContext.Provider>
     )

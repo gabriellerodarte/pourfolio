@@ -1,11 +1,15 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { SpiritContext } from "../context/SpiritContext"
 import NewSpiritForm from "./NewSpiritForm"
 import "../styles/spirits.css"
 
 function Spirits() {
-    const { spirits } = useContext(SpiritContext)
+    const { spirits, getSpirits } = useContext(SpiritContext)
     const [showSpiritForm, setShowSpiritForm] = useState(false)
+
+    useEffect(() => {
+        getSpirits()
+    }, [getSpirits])
 
     return (
         <div>
