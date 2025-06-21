@@ -31,8 +31,8 @@ function NewSpiritForm({ setShowSpiritForm }) {
                     })
                     .then(r => {
                         if (!r.ok) {
-                            return r.text().then(errorText => {
-                                return Promise.reject(errorText)
+                            return r.json().then(errorData => {
+                                return Promise.reject(errorData)
                             })
                         }
                         return r.json()
@@ -42,8 +42,8 @@ function NewSpiritForm({ setShowSpiritForm }) {
                         resetForm()
                         setShowSpiritForm(false)
                     })
-                    .catch(errorText => {
-                        console.log("Error:", errorText)
+                    .catch(errorData => {
+                        console.log("Error:", errorData)
                     })
 
                 }}
@@ -51,7 +51,7 @@ function NewSpiritForm({ setShowSpiritForm }) {
                 <Form>
                     <label htmlFor="name">Spirit Name</label>
                     <Field name="name" type="text"/>
-                    <ErrorMessage name="name"/>
+                    <ErrorMessage name="name" component="div" className="error"/>
                     
                     <div className="centered-button">
                         <button type="submit">Add Spirit</button>

@@ -51,8 +51,8 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
                     })
                     .then(r => {
                         if (!r.ok) {
-                            return r.text().then(errorText => {
-                                return Promise.reject(errorText)
+                            return r.json().then(errorData => {
+                                return Promise.reject(errorData)
                             })
                         }
                         return r.json()
@@ -82,8 +82,8 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
                             setShowSpiritForm(false)
                         }
                     })
-                    .catch(errorText => {
-                        console.log("Error:", errorText)
+                    .catch(errorData => {
+                        console.log("Error:", errorData.error)
                     })
 
                 }}

@@ -4,52 +4,63 @@ import { UserContext } from "../context/UserContext"
 
 
 function CocktailRecipe() {
-    const { userSpirits, setUserSpirits } = useContext(UserContext)
+    const { userSpirits, deleteCocktail } = useContext(UserContext)
     const { spiritId, id } = useParams()
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false)
+    const [errorMsg, setErrorMsg] = useState('')
     
     const spirit = userSpirits.find(spirit => spirit.id === parseInt(spiritId))
     const cocktail = spirit.cocktails.find(cocktail => cocktail.id === parseInt(id))
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         console.log("deleting cocktail")
-        fetch(`/cocktails/${id}`, {
-            method: 'DELETE'
-        })
-        .then(r => {
-            if (r.ok) {
-                setUserSpirits((prevSpirits) => {
-                    const spiritIndex = prevSpirits.findIndex(s => s.id === parseInt(spiritId))
-                    const spirit = prevSpirits[spiritIndex]
+        const { error, success } = await deleteCocktail(spiritId, id)
+        if (error) {
+            console.log(error)
+            setErrorMsg(error)
+            setShowModal(false)
+        } else {
+            userSpirits.find(s => s.id === spiritId) ? navigate(`/my-spirits/${spiritId}/cocktails`) : navigate("/my-spirits")
+            setShowModal(false)
+            console.log(success)
+        }
+        // fetch(`/cocktails/${id}`, {
+        //     method: 'DELETE'
+        // })
+        // .then(r => {
+        //     if (r.ok) {
+        //         setUserSpirits((prevSpirits) => {
+        //             const spiritIndex = prevSpirits.findIndex(s => s.id === parseInt(spiritId))
+        //             const spirit = prevSpirits[spiritIndex]
 
-                    const remainingCocktails = spirit.cocktails.filter(c => c.id !== parseInt(id))
-                    const updatedSpirit = {...spirit, cocktails: remainingCocktails}
+        //             const remainingCocktails = spirit.cocktails.filter(c => c.id !== parseInt(id))
+        //             const updatedSpirit = {...spirit, cocktails: remainingCocktails}
 
-                    const newSpirits = [...prevSpirits]
-                    if (remainingCocktails.length === 0) {
-                        newSpirits.splice(spiritIndex, 1)
-                    } else {
-                        newSpirits[spiritIndex] = updatedSpirit
-                    }
+        //             const newSpirits = [...prevSpirits]
+        //             if (remainingCocktails.length === 0) {
+        //                 newSpirits.splice(spiritIndex, 1)
+        //             } else {
+        //                 newSpirits[spiritIndex] = updatedSpirit
+        //             }
 
-                    setTimeout(() => {
-                        remainingCocktails.length === 0 ? navigate("/my-spirits") : navigate(`/my-spirits/${spiritId}/cocktails`)
-                    }, 0)
+        //             setTimeout(() => {
+        //                 remainingCocktails.length === 0 ? navigate("/my-spirits") : navigate(`/my-spirits/${spiritId}/cocktails`)
+        //             }, 0)
 
-                    return newSpirits
-                })
-                setShowModal(false)
+        //             return newSpirits
+        //         })
+        //         setShowModal(false)
 
-            } else {
-                return r.text().then(errorText => {
-                    return Promise.reject(errorText)
-                })
-            }
-        })
-        .catch(errorText => {
-            console.log("Error:", errorText)
-        })
+        //     } else {
+        //         return r.json().then(errorData => {
+        //             return Promise.reject(errorData)
+        //         })
+        //     }
+        // })
+        // .catch(errorData => {
+        //     console.log("Error:", errorData)
+        // })
     }
 
     return (
@@ -79,6 +90,11 @@ function CocktailRecipe() {
                 </div>
 
             </div>
+            {errorMsg && (
+                <div className="error">
+                    {errorMsg}
+                </div>
+            )}
             {showModal && (
                 <div className="modal-overlay">
                     <div className="modal-content">

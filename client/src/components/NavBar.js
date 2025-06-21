@@ -19,13 +19,13 @@ function NavBar() {
                 setLoggedIn(false)
                 navigate("/")
             } else {
-                return r.text().then(errorText => {
-                    return Promise.reject(errorText)
+                return r.json().then(errorData => {
+                    return Promise.reject(errorData)
                 })
             }
         })
-        .catch(errorText => {
-            console.log("Error:", errorText)
+        .catch(errorData => {
+            console.log("Error:", errorData)
         })
 
     }

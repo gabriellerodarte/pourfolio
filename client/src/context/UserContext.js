@@ -27,9 +27,44 @@ function UserProvider({ children }) {
         })
     }, [])
 
+    const deleteCocktail = async (spiritId, cocktailId) => {
+        try {
+            const res = await fetch(`/cocktails/${cocktailId}`, {
+                method: 'DELETE',
+            })
+            
+            if (!res.ok) {
+                const data = await res.json()
+                return { error: data || "Error deleting cocktail"} 
+            } else {
+                setUserSpirits((prevSpirits) => {
+                    const spiritIndex = prevSpirits.findIndex(s => s.id === parseInt(spiritId))
+                    const spirit = prevSpirits[spiritIndex]
+
+                    const remainingCocktails = spirit.cocktails.filter(c => c.id !== parseInt(cocktailId))
+                    const updatedSpirit = {...spirit, cocktails: remainingCocktails}
+
+                    const newSpirits = [...prevSpirits]
+                    if (remainingCocktails.length === 0) {
+                        newSpirits.splice(spiritIndex, 1)
+                    } else {
+                        newSpirits[spiritIndex] = updatedSpirit
+                    }
+
+                    return newSpirits
+                })
+                return { success: "Cocktail successfully deleted"}
+            }
+            
+
+        } catch (err) {
+            console.log(err)
+            return { error: "Error deleting cocktail. Please try again."}
+        }
+    }
 
     return (
-        <UserContext.Provider value={{ user, setUser, userSpirits, setUserSpirits, loggedIn, setLoggedIn }}>
+        <UserContext.Provider value={{ user, setUser, userSpirits, setUserSpirits, loggedIn, setLoggedIn, deleteCocktail }}>
             {children}
         </UserContext.Provider>
     )
