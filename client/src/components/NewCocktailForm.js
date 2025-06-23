@@ -87,7 +87,7 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
                         }
                     })
                     .catch(errorData => {
-                        console.log("Error:", errorData.error)
+                        console.error("Error:", errorData.error)
                     })
 
                 }}

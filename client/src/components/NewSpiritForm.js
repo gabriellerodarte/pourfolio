@@ -6,7 +6,7 @@ import "../styles/formstyles.css";
 
 
 function NewSpiritForm({ setShowSpiritForm }) {
-    const { setSpirits } = useContext(SpiritContext)
+    const { spirits, setSpirits } = useContext(SpiritContext)
 
     const SpiritSchema = Yup.object().shape({
         name: Yup.string().required("Spirit name required")
@@ -21,7 +21,12 @@ function NewSpiritForm({ setShowSpiritForm }) {
             <Formik
                 initialValues={initialValues}
                 validationSchema={SpiritSchema}
-                onSubmit={(values, {resetForm}) => {
+                onSubmit={(values, { resetForm, setErrors }) => {
+                    if (spirits.some(s => s.name.toLowerCase() === values.name.toLowerCase())) {
+                        setErrors({ name: "Spirit name already exists"})
+                        return
+                    }
+
                     fetch(`/spirits`, {
                         method: 'POST',
                         headers: {
@@ -43,7 +48,8 @@ function NewSpiritForm({ setShowSpiritForm }) {
                         setShowSpiritForm(false)
                     })
                     .catch(errorData => {
-                        console.log("Error:", errorData)
+                        console.error("Error:", errorData.error)
+                        setErrors({ name: errorData.error})
                     })
 
                 }}

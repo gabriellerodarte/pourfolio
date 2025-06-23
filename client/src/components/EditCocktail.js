@@ -57,7 +57,6 @@ function EditCocktail() {
                         return r.json()
                     })
                     .then(updatedCocktail => {
-                        console.log(updatedCocktail)
                         setUserSpirits((prevSpirits) => (
                             prevSpirits.map(spirit => {
                                 if (spirit.id === parseInt(spiritId)) {
@@ -75,7 +74,7 @@ function EditCocktail() {
                         navigate(`/my-spirits/${spiritId}/cocktails/${id}`)
                     })
                     .catch(errorData => {
-                        console.log("Error:", errorData)
+                        console.error("Error:", errorData)
                         resetForm()
                     })
                 }}

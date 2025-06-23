@@ -146,8 +146,13 @@ class SpiritResource(Resource):
 
     def post(self):
         if session.get('user_id'):
+
             try:
                 json = request.get_json()
+                username = json.get('username')
+                if User.query.filter_by(username=username).first():
+                    return {'error': 'Spirit already exists'}, 400
+
                 new_spirit = Spirit(name=json['name'])
                 db.session.add(new_spirit)
                 db.session.commit()

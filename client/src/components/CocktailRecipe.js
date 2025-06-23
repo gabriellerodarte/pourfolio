@@ -19,13 +19,11 @@ function CocktailRecipe() {
     const cocktail = spirit?.cocktails?.find(cocktail => cocktail.id === parseInt(id))
 
     if (!spirit || !cocktail) {
-        console.log('Spirit or cocktail not found')
         navigate("/my-spirits")
         return null
     }
 
     const handleDelete = async () => {
-        console.log("deleting cocktail")
         const { error, success } = await deleteCocktail(spiritId, id)
         if (error) {
             console.log(error)

@@ -10,7 +10,6 @@ function Login() {
     const navigate = useNavigate()
     const [errorMsg, setErrorMsg] = useState('')
 
-    console.log(user)
     if (user?.username) {
         return <Navigate to="/"/>
     }
@@ -59,7 +58,7 @@ function Login() {
                         resetForm()
                     })
                     .catch(errorData => {
-                        console.log("Login error:", errorData)
+                        console.error("Login error:", errorData)
                         setErrorMsg(errorData.error)
                         resetForm()
                     })
