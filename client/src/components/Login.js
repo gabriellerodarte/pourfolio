@@ -8,6 +8,7 @@ import "../styles/auth.css";
 function Login() {
     const { setUser, setUserSpirits, setLoggedIn, login } = useContext(UserContext)
     const navigate = useNavigate()
+    const [errorMsg, setErrorMsg] = useState('')
 
     const LoginSchema = Yup.object().shape({
         username: Yup.string().required("Username required"),
@@ -54,6 +55,7 @@ function Login() {
                     })
                     .catch(errorData => {
                         console.log("Login error:", errorData)
+                        setErrorMsg(errorData.error)
                         resetForm()
                     })
                 }}
@@ -66,6 +68,8 @@ function Login() {
                     <label htmlFor="password">Password</label>
                     <Field name="password" type="password"/>
                     <ErrorMessage name="password" component="div" className="error"/>
+
+                    {errorMsg && <div className="error">{errorMsg}. Please try again.</div>}
 
                     <div className="centered-button">
                         <button type="submit">Log In</button>
