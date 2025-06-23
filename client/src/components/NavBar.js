@@ -24,7 +24,7 @@ function NavBar() {
             }
         })
         .catch(errorData => {
-            console.error("Error:", errorData)
+            console.log("Error:", errorData)
         })
 
     }

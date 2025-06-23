@@ -9,6 +9,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import CocktailRecipe from "./components/CocktailRecipe";
 import EditCocktail from "./components/EditCocktail";
 import ErrorPage from "./components/ErrorPage";
+import { Navigate } from "react-router-dom";
+import RedirectToCocktails from "./components/RedirectToCocktails";
 
 
 const routes = [
@@ -42,6 +44,14 @@ const routes = [
                 element: (
                     <PrivateRoute>
                         <MySpirits/>
+                    </PrivateRoute>
+                )
+            },
+            {
+                path: "/my-spirits/:id",
+                element: (
+                    <PrivateRoute>
+                        <RedirectToCocktails/>
                     </PrivateRoute>
                 )
             },

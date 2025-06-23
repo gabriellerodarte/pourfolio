@@ -74,7 +74,7 @@ function EditCocktail() {
                         navigate(`/my-spirits/${spiritId}/cocktails/${id}`)
                     })
                     .catch(errorData => {
-                        console.error("Error:", errorData)
+                        console.log("Error:", errorData)
                         resetForm()
                     })
                 }}

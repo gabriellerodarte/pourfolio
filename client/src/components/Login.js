@@ -58,7 +58,7 @@ function Login() {
                         resetForm()
                     })
                     .catch(errorData => {
-                        console.error("Login error:", errorData)
+                        console.log("Login error:", errorData)
                         setErrorMsg(errorData.error)
                         resetForm()
                     })

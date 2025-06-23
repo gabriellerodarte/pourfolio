@@ -48,7 +48,7 @@ function NewSpiritForm({ setShowSpiritForm }) {
                         setShowSpiritForm(false)
                     })
                     .catch(errorData => {
-                        console.error("Error:", errorData.error)
+                        console.log("New Spirit Error:", errorData)
                         setErrors({ name: errorData.error})
                     })
 

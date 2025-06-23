@@ -59,7 +59,7 @@ function Signup() {
                         navigate("/")
                     })
                     .catch(errorData => {
-                        console.error("Signup error:", errorData)
+                        console.log("Signup error:", errorData)
                         setErrors({ username: errorData.error })
                     })
                 }}
