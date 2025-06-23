@@ -5,12 +5,12 @@ import "../styles/home.css";
 
 
 function Home() {
-    const { loggedIn } = useContext(UserContext)
+    const { user } = useContext(UserContext)
 
     return (
         <div className="home-container">
             <h1>pourfolio</h1>
-            { loggedIn ? (
+            { user?.username ? (
                 <div>
                     <p>Your curated cocktail recipe vault.</p>
                 </div>

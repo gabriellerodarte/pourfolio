@@ -24,7 +24,7 @@ function MySpirits() {
                         <p className="arrow">{'>'}</p>
                     </div>
                 ))}
-                {userSpirits.length == 0 && (
+                {userSpirits.length === 0 && (
                     <p className="empty-message">Add cocktail recipes to see your spirits here!</p>
                 )}
             </div>

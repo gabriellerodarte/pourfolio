@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { Navigate, useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../context/UserContext"
 import NewCocktailForm from "./NewCocktailForm"
 import "../styles/cocktails.css"
@@ -10,6 +10,12 @@ function CocktailCards() {
     const { id } = useParams()
     const { userSpirits } = useContext(UserContext)
     const [showCocktailForm, setShowCocktailForm] = useState(false)
+
+    const ownsSpirit = userSpirits.some(s => s.id === parseInt(id))
+
+    if (!ownsSpirit) {
+        return <Navigate to="/my-spirits"/>
+    }
 
     const spirit = userSpirits.find(spirit => spirit.id === parseInt(id))
 
@@ -35,7 +41,7 @@ function CocktailCards() {
                 <NewCocktailForm setShowCocktailForm={setShowCocktailForm}/>
             ) : (
                 <div className="centered-button">
-                    <button onClick={() => setShowCocktailForm(true)}>+ New {spirit.name} Cocktail</button>
+                    <button onClick={() => setShowCocktailForm(true)}>+ New {spirit?.name} Cocktail</button>
                 </div>
             )}
         </div>

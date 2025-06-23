@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { Navigate, useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../context/UserContext"
 
 
@@ -9,9 +9,20 @@ function CocktailRecipe() {
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false)
     const [errorMsg, setErrorMsg] = useState('')
+    const ownsCocktail = userSpirits.flatMap(s => s.cocktails).some(c => c.id === parseInt(id)) 
+
+    if (!ownsCocktail) {
+        return <Navigate to="/my-spirits"/>
+    }
     
     const spirit = userSpirits.find(spirit => spirit.id === parseInt(spiritId))
-    const cocktail = spirit.cocktails.find(cocktail => cocktail.id === parseInt(id))
+    const cocktail = spirit?.cocktails?.find(cocktail => cocktail.id === parseInt(id))
+
+    if (!spirit || !cocktail) {
+        console.log('Spirit or cocktail not found')
+        navigate("/my-spirits")
+        return null
+    }
 
     const handleDelete = async () => {
         console.log("deleting cocktail")
@@ -25,44 +36,8 @@ function CocktailRecipe() {
             setShowModal(false)
             console.log(success)
         }
-        // fetch(`/cocktails/${id}`, {
-        //     method: 'DELETE'
-        // })
-        // .then(r => {
-        //     if (r.ok) {
-        //         setUserSpirits((prevSpirits) => {
-        //             const spiritIndex = prevSpirits.findIndex(s => s.id === parseInt(spiritId))
-        //             const spirit = prevSpirits[spiritIndex]
-
-        //             const remainingCocktails = spirit.cocktails.filter(c => c.id !== parseInt(id))
-        //             const updatedSpirit = {...spirit, cocktails: remainingCocktails}
-
-        //             const newSpirits = [...prevSpirits]
-        //             if (remainingCocktails.length === 0) {
-        //                 newSpirits.splice(spiritIndex, 1)
-        //             } else {
-        //                 newSpirits[spiritIndex] = updatedSpirit
-        //             }
-
-        //             setTimeout(() => {
-        //                 remainingCocktails.length === 0 ? navigate("/my-spirits") : navigate(`/my-spirits/${spiritId}/cocktails`)
-        //             }, 0)
-
-        //             return newSpirits
-        //         })
-        //         setShowModal(false)
-
-        //     } else {
-        //         return r.json().then(errorData => {
-        //             return Promise.reject(errorData)
-        //         })
-        //     }
-        // })
-        // .catch(errorData => {
-        //     console.log("Error:", errorData)
-        // })
     }
-
+    
     return (
         <div>
             <p className="back-link" onClick={() => navigate(`/my-spirits/${spiritId}/cocktails`)}>
@@ -75,7 +50,7 @@ function CocktailRecipe() {
                         <h4>Ingredients</h4>
                         <ul className="ingredient-list">
                             {cocktail.ingredients.split('\n').map((ingredient, index) => (
-                            <li key={index}>{ingredient}</li>
+                                <li key={index}>{ingredient}</li>
                             ))}
                         </ul>            
                     </div>
@@ -112,3 +87,40 @@ function CocktailRecipe() {
 }
 
 export default CocktailRecipe
+
+// fetch(`/cocktails/${id}`, {
+//     method: 'DELETE'
+// })
+// .then(r => {
+//     if (r.ok) {
+//         setUserSpirits((prevSpirits) => {
+//             const spiritIndex = prevSpirits.findIndex(s => s.id === parseInt(spiritId))
+//             const spirit = prevSpirits[spiritIndex]
+
+//             const remainingCocktails = spirit.cocktails.filter(c => c.id !== parseInt(id))
+//             const updatedSpirit = {...spirit, cocktails: remainingCocktails}
+
+//             const newSpirits = [...prevSpirits]
+//             if (remainingCocktails.length === 0) {
+//                 newSpirits.splice(spiritIndex, 1)
+//             } else {
+//                 newSpirits[spiritIndex] = updatedSpirit
+//             }
+
+//             setTimeout(() => {
+//                 remainingCocktails.length === 0 ? navigate("/my-spirits") : navigate(`/my-spirits/${spiritId}/cocktails`)
+//             }, 0)
+
+//             return newSpirits
+//         })
+//         setShowModal(false)
+
+//     } else {
+//         return r.json().then(errorData => {
+//             return Promise.reject(errorData)
+//         })
+//     }
+// })
+// .catch(errorData => {
+//     console.log("Error:", errorData)
+// })

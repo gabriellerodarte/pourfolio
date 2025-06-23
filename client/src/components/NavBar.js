@@ -5,7 +5,7 @@ import "../styles/navbar.css";
 
 
 function NavBar() {
-    const { setUser, setUserSpirits, setLoggedIn } = useContext(UserContext)
+    const { setUser, setUserSpirits } = useContext(UserContext)
     const navigate = useNavigate()
 
     const handleLogout = () => {
@@ -16,7 +16,6 @@ function NavBar() {
             if (r.ok) {
                 setUser({})
                 setUserSpirits([])
-                setLoggedIn(false)
                 navigate("/")
             } else {
                 return r.json().then(errorData => {

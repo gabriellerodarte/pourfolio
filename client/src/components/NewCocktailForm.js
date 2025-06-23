@@ -10,7 +10,7 @@ import "../styles/formstyles.css";
 function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
     const { id } = useParams()
     const { spirits, getSpirits } = useContext(SpiritContext)
-    const { userSpirits, setUserSpirits } = useContext(UserContext)
+    const { setUserSpirits } = useContext(UserContext)
 
     useEffect(() => {
         getSpirits()

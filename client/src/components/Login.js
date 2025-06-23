@@ -2,13 +2,18 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup"
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import "../styles/auth.css";
 
 function Login() {
-    const { setUser, setUserSpirits, setLoggedIn, login } = useContext(UserContext)
+    const { user, setUser, setUserSpirits } = useContext(UserContext)
     const navigate = useNavigate()
     const [errorMsg, setErrorMsg] = useState('')
+
+    console.log(user)
+    if (user?.username) {
+        return <Navigate to="/"/>
+    }
 
     const LoginSchema = Yup.object().shape({
         username: Yup.string().required("Username required"),
@@ -49,7 +54,7 @@ function Login() {
                             username: userData.username
                         })
                         setUserSpirits(userData.spirits)
-                        setLoggedIn(true)
+                        // setLoggedIn(true)
                         navigate("/")
                         resetForm()
                     })

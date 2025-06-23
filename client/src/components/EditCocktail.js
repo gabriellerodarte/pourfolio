@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useContext } from "react";
@@ -10,6 +10,12 @@ function EditCocktail() {
     const navigate = useNavigate()
     const { userSpirits, setUserSpirits } = useContext(UserContext)
 
+    const ownsCocktail = userSpirits.flatMap(s => s.cocktails).some(c => c.id === parseInt(id)) 
+
+    if (!ownsCocktail) {
+        return <Navigate to="/my-spirits"/>
+    }
+
     const cocktail = userSpirits.flatMap(spirit => spirit.cocktails).find(cocktail => cocktail.id === parseInt(id))
     
     const CocktailSchema = Yup.object().shape({
@@ -19,10 +25,14 @@ function EditCocktail() {
     })
     
         const initialValues = {
-            name: cocktail.name,
-            ingredients: cocktail.ingredients,
-            instructions: cocktail.instructions
+            name: cocktail?.name,
+            ingredients: cocktail?.ingredients,
+            instructions: cocktail?.instructions
         }
+
+    if (!cocktail) {
+        return <div>Loading...</div>
+    }
     
     return (
         <div>
@@ -74,7 +84,7 @@ function EditCocktail() {
                     <label htmlFor="name">Cocktail Name</label>
                     <Field name="name" type="text"/>
                     <ErrorMessage name="name"/>
-                    <p className="spirit-reference">made with {userSpirits.find(spirit => spirit.id === parseInt(spiritId)).name}</p>
+                    <p className="spirit-reference">made with {userSpirits.find(spirit => spirit.id === parseInt(spiritId))?.name}</p>
     
                     <div className="label-with-tooltip">
                         <label htmlFor="ingredients">Ingredients</label>

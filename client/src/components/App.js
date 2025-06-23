@@ -5,20 +5,21 @@ import NavBar from "./NavBar";
 import "../styles/app.css";
 
 function App() {
-  const { user, loggedIn } = useContext(UserContext)
+  const { user, loading } = useContext(UserContext)
 
   return (
     <div className="app-container">
       <header>
-        {loggedIn && (
+        {user?.username && (
           <NavBar/>
         )}
       </header>
       <main>
-          <Outlet/>
+        {loading ? <div>Loading...</div> : <Outlet/>}
+          {/* <Outlet/> */}
       </main>
       <footer>
-        {loggedIn && (
+        {user?.username && (
           <p>Built by {user.username}🍸</p>
         )}
       </footer>

@@ -1,17 +1,19 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 const UserContext = React.createContext()
 
 function UserProvider({ children }) {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState(() => {
+        const savedUser = localStorage.getItem('user')
+        return savedUser ? JSON.parse(savedUser) : null
+    })
     const [userSpirits, setUserSpirits] = useState([])
-    const [loggedIn, setLoggedIn] = useState(false)
+    const [loading, setLoading] = useState((true))
 
     useEffect(() => {
         fetch(`/check_session`)
         .then(r => {
             if (r.ok) return r.json()
-            throw new Error('Failed to fetch session')
         })
         .then(userData => {
             setUser({
@@ -19,13 +21,24 @@ function UserProvider({ children }) {
                 username: userData.username
             })
             setUserSpirits(userData.spirits)
-            setLoggedIn(true)
+            // setLoggedIn(true)
         })
         .catch(error => {
             console.error('Error fetching session: ', error)
-            setUser(null)
+            setUser({})
+        })
+        .finally(() => {
+            setLoading(false)
         })
     }, [])
+
+    useEffect(() => {
+        if (user?.username) {
+            localStorage.setItem('user', JSON.stringify(user))
+        } else {
+            localStorage.removeItem('user')
+        }
+    }, [user])
 
     const deleteCocktail = async (spiritId, cocktailId) => {
         try {
@@ -61,7 +74,7 @@ function UserProvider({ children }) {
     }
 
     return (
-        <UserContext.Provider value={{ user, setUser, userSpirits, setUserSpirits, loggedIn, setLoggedIn, deleteCocktail }}>
+        <UserContext.Provider value={{ user, setUser, userSpirits, setUserSpirits, deleteCocktail, loading }}>
             {children}
         </UserContext.Provider>
     )
