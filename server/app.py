@@ -247,7 +247,6 @@ class CocktailById(Resource):
         except Exception as e:
             return {"error": str(e)}, 400
 
-
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
@@ -259,7 +258,6 @@ api.add_resource(Logout, '/logout', endpoint='logout')
 api.add_resource(SpiritResource, '/spirits', endpoint='spirits')
 api.add_resource(CocktailResource, '/cocktails', endpoint='cocktails')
 api.add_resource(CocktailById, '/cocktails/<int:id>', endpoint='cocktail_by_id')
-
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

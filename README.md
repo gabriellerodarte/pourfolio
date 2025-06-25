@@ -10,7 +10,7 @@ The application uses a Flask backend with SQLalchemy models and React frontend w
 
 ## Backend: Flask Routes & Controllers
 
-The `app.py` file registers the Flask app and defines all API endpoints using `Flask-Restful`. It handles authentication, session management, and CRUD operations for both spirits and cocktails. The user must be logged in to access protected resources like creating cocktails or viewing spirits.
+The `app.py` file registers the Flask app and defines all API endpoints using `Flask-Restful`. It handles authentication, session management, and CRUD operations for cocktails. The user must be logged in to access protected resources like creating cocktails or viewing spirits.
 
 ---
 
@@ -38,7 +38,7 @@ Returns a list of all spirits in the database, regardless of user. Used to popul
 #### `POST /spirits`
 Adds a new spirit to the database. Requires an authenticated session. The new spirit is available to all users.
 
-> **Note:** The Spirit model is shared among all users — the app differentiates a user’s personal cocktail list by `user_id` on the cocktail, not the spirit.
+ **Note:** The Spirit model is shared among all users — the app differentiates a user’s personal cocktail list by `user_id` on the cocktail, not the spirit.
 
 ---
 
@@ -76,7 +76,7 @@ Represents an individual account in POURfolio. Users can create cocktail recipes
 - `authenticate(password)`: Compares an input password to the stored hash.
 
 #### Serialization
-- Excludes `_password_hash` and full cocktail list by default.
+- Excludes `_password_hash` and full cocktail list by default. 
 
 ---
 
@@ -156,7 +156,7 @@ Holds global state for `user`, `userSpirits`, and `loggedIn` status. Shared acro
 
 ### `MySpirits.js`
 - Lists all spirits that the user has cocktail recipes associated with, as well as the number of cocktails under each
-- Clicking a spirit navigates to a list of that spirit’s cocktails
+- Clicking a spirit navigates to a list of that spirit’s cocktails, which can then be clicked to navigate to a particular cocktail's recipe
 - Allows adding a new cocktail or new spirit
 
 **Functions:**
@@ -213,13 +213,13 @@ Holds global state for `user`, `userSpirits`, and `loggedIn` status. Shared acro
 
 ---
 
-## 🎨 Styling
+## Styling
 
 All styles are written in **vanilla CSS**, favoring a minimalist and modern aesthetic. Font sizes, layout spacing, and card styles are consistent across pages. Tooltips, modals, and hover states are customized to match the POURfolio theme.
 
 ---
 
-## 🧪 Future Enhancements
+## Future Enhancements
 
 - User profile customization
 - Cocktail image support

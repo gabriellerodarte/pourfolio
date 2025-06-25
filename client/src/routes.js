@@ -9,7 +9,6 @@ import PrivateRoute from "./components/PrivateRoute";
 import CocktailRecipe from "./components/CocktailRecipe";
 import EditCocktail from "./components/EditCocktail";
 import ErrorPage from "./components/ErrorPage";
-import { Navigate } from "react-router-dom";
 import RedirectToCocktails from "./components/RedirectToCocktails";
 
 
