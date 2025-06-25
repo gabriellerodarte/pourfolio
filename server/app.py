@@ -57,19 +57,19 @@ class Login(Resource):
 
                 for cocktail in user.cocktails:
                     spirit = cocktail.spirit
-                    if spirit.id not in unique_spirits:
+                    if not unique_spirits.get(spirit.id):
                         unique_spirits[spirit.id] = {
                             'id': spirit.id,
                             'name': spirit.name,
                             'cocktails': []
                         }
 
-                        unique_spirits[spirit.id]['cocktails'].append({
-                            'id': cocktail.id,
-                            'name': cocktail.name,
-                            'ingredients': cocktail.ingredients,
-                            'instructions': cocktail.instructions
-                        })
+                    unique_spirits[spirit.id]['cocktails'].append({
+                        'id': cocktail.id,
+                        'name': cocktail.name,
+                        'ingredients': cocktail.ingredients,
+                        'instructions': cocktail.instructions
+                    })
 
                 user_dict = user.to_dict()
                 user_dict['spirits'] = list(unique_spirits.values())
@@ -100,19 +100,33 @@ class CheckSession(Resource):
 
         for cocktail in user.cocktails:
             spirit = cocktail.spirit
-            if spirit.id not in unique_spirits:
+            if not unique_spirits.get(spirit.id):
                 unique_spirits[spirit.id] = {
                     'id': spirit.id,
                     'name': spirit.name,
                     'cocktails': []
                 }
 
-                unique_spirits[spirit.id]['cocktails'].append({
-                    'id': cocktail.id,
-                    'name': cocktail.name,
-                    'ingredients': cocktail.ingredients,
-                    'instructions': cocktail.instructions
-                })
+            unique_spirits[spirit.id]['cocktails'].append({
+                'id': cocktail.id,
+                'name': cocktail.name,
+                'ingredients': cocktail.ingredients,
+                'instructions': cocktail.instructions
+            })
+        # for spirit in user.spirits:
+        #     cocktails = [c for c in user.cocktails if c.spirit == spirit]
+        #     unique_spirits.append({
+        #         'id': spirit.id,
+        #         'name': spirit.name,
+        #         'cocktails': [
+        #             {
+        #                 'id': c.id,
+        #                 'name': c.name,
+        #                 'ingredients': c.ingredients,
+        #                 'instructions': c.instructions
+        #             } for c in cocktails
+        #         ]
+        #     })
 
         user_dict = user.to_dict()
         user_dict['spirits'] = list(unique_spirits.values())

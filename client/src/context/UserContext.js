@@ -21,6 +21,7 @@ function UserProvider({ children }) {
                 username: userData.username
             })
             setUserSpirits(userData.spirits)
+            console.log(userData.spirits)
         })
         .catch(error => {
             console.error('Error fetching session: ', error)

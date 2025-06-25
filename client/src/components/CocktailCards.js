@@ -19,6 +19,11 @@ function CocktailCards() {
 
     const spirit = userSpirits.find(spirit => spirit.id === parseInt(id))
 
+    const capitalize = (str) => {
+        const capitalized = str.charAt(0).toUpperCase() + str.slice(1)
+        return capitalized
+    }
+
     return (
         <div>
             <p className="back-link" onClick={() => navigate(`/my-spirits`)}>
@@ -41,7 +46,7 @@ function CocktailCards() {
                 <NewCocktailForm setShowCocktailForm={setShowCocktailForm}/>
             ) : (
                 <div className="centered-button">
-                    <button onClick={() => setShowCocktailForm(true)}>+ New {spirit?.name} Cocktail</button>
+                    <button onClick={() => setShowCocktailForm(true)}>+ New {capitalize(spirit?.name)} Cocktail</button>
                 </div>
             )}
         </div>

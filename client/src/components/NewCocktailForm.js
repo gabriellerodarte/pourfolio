@@ -38,14 +38,12 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
                 initialValues={initialValues}
                 validationSchema={CocktailSchema}
                 onSubmit={(values, {resetForm}) => {
-                    // const ingredientsArray = values.ingredients.split('\n').map(line => line.trim()).filter(line => line);
                     const newCocktail = {
                         name: values.name,
                         spirit_id: parseInt(values.spirit),
                         ingredients: values.ingredients,
                         instructions: values.instructions,
                     }
-                    // fetch to submit cocktail 
                     fetch(`/cocktails`, {
                         method: 'POST',
                         headers: {
@@ -87,7 +85,7 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
                         }
                     })
                     .catch(errorData => {
-                        console.log("New Cocktail Error:", errorData)
+                        console.log("New Cocktail Error:", errorData.error)
                     })
 
                 }}
