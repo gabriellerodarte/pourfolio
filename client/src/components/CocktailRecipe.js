@@ -74,8 +74,8 @@ function CocktailRecipe() {
                         <h4>Delete this cocktail?</h4>
                         <p>This action cannot be undone.</p>
                         <div className="modal-buttons">
-                            <button className="confirm" onClick={handleDelete}>Delete</button>
                             <button className="cancel" onClick={() => setShowModal(false)}>Cancel</button>
+                            <button className="confirm" onClick={handleDelete}>Delete</button>
                         </div>
                     </div>
                 </div>
