@@ -53,7 +53,6 @@ function Login() {
                             username: userData.username
                         })
                         setUserSpirits(userData.spirits)
-                        // setLoggedIn(true)
                         navigate("/")
                         resetForm()
                     })

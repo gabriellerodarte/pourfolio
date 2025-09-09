@@ -261,6 +261,13 @@ class CocktailById(Resource):
         except Exception as e:
             return {"error": str(e)}, 400
 
+# many_cocktails/3
+@app.route('/many_cocktails/<int:amount>')
+def many_cocktails(amount):
+    spirits = Spirit.query.all()
+    filtered_spirits = [spirit.to_dict() for spirit in spirits if len(spirit.cocktails) >= amount]
+    return filtered_spirits, 200
+
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'

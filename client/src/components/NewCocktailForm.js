@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { SpiritContext } from "../context/SpiritContext";
@@ -11,6 +11,7 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
     const { id } = useParams()
     const { spirits, getSpirits } = useContext(SpiritContext)
     const { setUserSpirits } = useContext(UserContext)
+    const navigate = useNavigate()
 
     useEffect(() => {
         getSpirits()
@@ -76,13 +77,14 @@ function NewCocktailForm({ setShowCocktailForm, setShowSpiritForm }) {
                                 }
                                 return [...prevSpirits, newSpirit]
                             }
-
                         })
-                        resetForm()
-                        setShowCocktailForm(false)
-                        if (setShowSpiritForm) {
-                            setShowSpiritForm(false)
-                        }
+                        // resetForm()
+                        console.log(newCocktailData)
+                        navigate(`/my-spirits/${newCocktail.spirit_id}/cocktails/${newCocktailData.id}`)
+                        // setShowCocktailForm(false)
+                        // if (setShowSpiritForm) {
+                        //     setShowSpiritForm(false)
+                        // }
                     })
                     .catch(errorData => {
                         console.log("New Cocktail Error:", errorData.error)
